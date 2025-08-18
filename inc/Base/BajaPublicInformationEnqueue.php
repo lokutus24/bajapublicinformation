@@ -48,6 +48,7 @@ class BajaPublicInformationEnqueue extends BajaPublicInformationBaseController
 
                 wp_enqueue_style('bpi-front', $this->pluginUrl.'assets/frontend.css', array(), null);
                 wp_enqueue_script('bpi-front', $this->pluginUrl.'assets/frontend.js', array('jquery'), null, true);
+                wp_localize_script('bpi-front', 'bpiAjax', array('ajax_url' => admin_url('admin-ajax.php')));
 
         }
 
