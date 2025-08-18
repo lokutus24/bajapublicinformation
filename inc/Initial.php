@@ -17,11 +17,12 @@ final class Initial
 	
 	public static function getService(){
 
-		return [
-			Pages\BajaPublicInformationDashboard::class,
-			Base\BajaPublicInformationEnqueue::class,
-			Base\BajaPublicInformationSettingsLink::class,
-		];
+                return [
+                        Pages\BajaPublicInformationDashboard::class,
+                        Base\BajaPublicInformationEnqueue::class,
+                        Base\BajaPublicInformationSettingsLink::class,
+                        Base\BpiCustomPostType::class,
+                ];
 		
 	}
 
