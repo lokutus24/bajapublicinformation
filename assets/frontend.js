@@ -1,39 +1,53 @@
-document.addEventListener('DOMContentLoaded', function(){
-    const catSelect = document.getElementById('bpi_cat');
-    const subSelect = document.getElementById('bpi_sub');
-    if(catSelect && subSelect){
-        catSelect.addEventListener('change', function(){
-            const parent = this.value;
-            subSelect.innerHTML = '<option value="">'+subSelect.getAttribute('data-placeholder')+'</option>';
-            if(!parent){return;}
-            fetch('/wp-json/wp/v2/bpi_category?parent='+parent)
-                .then(res=>res.json())
-                .then(data=>{
-                    data.forEach(term=>{
-                        const opt=document.createElement('option');
-                        opt.value=term.id;
-                        opt.textContent=term.name;
-                        subSelect.appendChild(opt);
-                    });
-                });
-        });
-    }
+jQuery(document).ready(function($){
+    let selectedCat = 0;
+    let selectedSub = 0;
 
-    // modal handling
-    const modal = document.getElementById('bpi-modal');
-    const modalBody = modal ? modal.querySelector('.bpi-modal-body') : null;
-    document.querySelectorAll('.bpi-result-card').forEach(card=>{
-        card.addEventListener('click', function(){
-            if(!modal || !modalBody){return;}
-            modalBody.innerHTML = this.querySelector('.bpi-card-details').innerHTML;
-            modal.classList.add('open');
-        });
+    $('.bpi-cat-item').on('click', function(e){
+        selectedCat = $(this).data('id');
+        selectedSub = 0;
+        $('.bpi-cat-item, .bpi-sub-item').removeClass('selected');
+        $(this).addClass('selected');
+        e.stopPropagation();
     });
-    if(modal){
-        modal.addEventListener('click', function(e){
-            if(e.target.classList.contains('bpi-close') || e.target === modal){
-                modal.classList.remove('open');
+
+    $('.bpi-sub-item').on('click', function(e){
+        selectedCat = $(this).closest('.bpi-cat-item').data('id');
+        selectedSub = $(this).data('id');
+        $('.bpi-sub-item').removeClass('selected');
+        $(this).addClass('selected');
+        e.stopPropagation();
+    });
+
+    function bindModal(){
+        const modal = $('#bpi-modal');
+        const modalBody = modal.find('.bpi-modal-body');
+        $('.bpi-result-card').off('click').on('click', function(){
+            modalBody.html($(this).find('.bpi-card-details').html());
+            modal.addClass('open');
+        });
+        modal.off('click').on('click', function(e){
+            if($(e.target).hasClass('bpi-close') || e.target === this){
+                modal.removeClass('open');
             }
         });
     }
+
+    $('#bpi-live-search').on('input', function(){
+        const term = $(this).val();
+        if(term.length < 3){
+            $('#bpi-live-results').empty();
+            return;
+        }
+        $.post(bpiAjax.ajax_url, {
+            action: 'bpi_live_search',
+            keyword: term,
+            cat: selectedCat,
+            sub: selectedSub
+        }, function(response){
+            $('#bpi-live-results').html(response);
+            bindModal();
+        });
+    });
+
+    bindModal();
 });
