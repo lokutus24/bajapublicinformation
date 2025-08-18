@@ -211,6 +211,9 @@ class BpiCustomPostType extends BajaPublicInformationBaseController
                 <span class="bpi-search-icon">&#128269;</span>
             </div>
             <div class="bpi-category-dropdown">
+                <button type="button" id="bpi-category-toggle" class="bpi-category-toggle">
+                    <?php _e('Kategória szűrés', 'bpi'); ?> <span class="bpi-arrow">&#9660;</span>
+                </button>
                 <ul class="bpi-category-list">
                     <?php foreach ($top_terms as $term) :
                         $subs = get_terms([

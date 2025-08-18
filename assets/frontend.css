@@ -21,8 +21,12 @@
 .bpi-input-wrapper{position:relative;}
 #bpi-live-search{width:100%;padding:0.75rem 2.5rem 0.75rem 0.75rem;border:1px solid #ccc;border-radius:4px;}
 .bpi-search-icon{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);pointer-events:none;}
-.bpi-category-dropdown{margin-top:1rem;}
-.bpi-category-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #ccc;display:inline-block;}
+.bpi-category-dropdown{margin-top:1rem;position:relative;}
+.bpi-category-toggle{background:#fff;border:1px solid #ccc;padding:0.5rem 1rem;width:100%;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.bpi-arrow{transition:transform 0.3s;}
+.bpi-category-dropdown.open .bpi-arrow{transform:rotate(180deg);}
+.bpi-category-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #ccc;display:none;}
+.bpi-category-dropdown.open .bpi-category-list{display:block;}
 .bpi-category-list>li{padding:0.5rem 1rem;position:relative;cursor:pointer;white-space:nowrap;}
 .bpi-category-list>li:hover{background:#f0f0f0;}
 .bpi-sub-list{list-style:none;margin:0;padding:0;position:absolute;left:100%;top:0;background:#fff;border:1px solid #ccc;display:none;}
