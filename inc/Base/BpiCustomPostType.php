@@ -198,7 +198,6 @@ class BpiCustomPostType extends BajaPublicInformationBaseController
         $keyword = isset($_GET['bpi_keyword']) ? sanitize_text_field($_GET['bpi_keyword']) : '';
         $cat     = isset($_GET['bpi_cat']) ? intval($_GET['bpi_cat']) : 0;
         $sub     = isset($_GET['bpi_sub']) ? intval($_GET['bpi_sub']) : 0;
-        $street  = isset($_GET['bpi_street']) ? sanitize_text_field($_GET['bpi_street']) : '';
 
         $top_terms = get_terms([
             'taxonomy'   => 'bpi_category',
@@ -208,97 +207,131 @@ class BpiCustomPostType extends BajaPublicInformationBaseController
 
         ob_start();
         ?>
-        <form method="get" class="bpi-search-form">
-            <input type="text" name="bpi_keyword" value="<?php echo esc_attr($keyword); ?>" placeholder="<?php _e('Keresés…', 'bpi'); ?>" />
-            <select name="bpi_cat" id="bpi_cat">
-                <option value=""><?php _e('Fő kategória', 'bpi'); ?></option>
-                <?php foreach ($top_terms as $term) : ?>
-                    <option value="<?php echo esc_attr($term->term_id); ?>" <?php selected($cat, $term->term_id); ?>><?php echo esc_html($term->name); ?></option>
-                <?php endforeach; ?>
-            </select>
-            <select name="bpi_sub" id="bpi_sub">
-                <option value=""><?php _e('Alkategória', 'bpi'); ?></option>
-                <?php
-                if ($cat) {
+        <div class="bpi-container">
+            <form method="get" class="bpi-search-form">
+                <input type="text" name="bpi_keyword" value="<?php echo esc_attr($keyword); ?>" placeholder="<?php _e('Keresés a lakossági információk között', 'bpi'); ?>" />
+                <select name="bpi_cat" id="bpi_cat">
+                    <option value=""><?php _e('Fő kategória', 'bpi'); ?></option>
+                    <?php foreach ($top_terms as $term) : ?>
+                        <option value="<?php echo esc_attr($term->term_id); ?>" <?php selected($cat, $term->term_id); ?>><?php echo esc_html($term->name); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select name="bpi_sub" id="bpi_sub" data-placeholder="<?php esc_attr_e('Alkategória', 'bpi'); ?>">
+                    <option value=""><?php _e('Alkategória', 'bpi'); ?></option>
+                    <?php
+                    if ($cat) {
+                        $subs = get_terms([
+                            'taxonomy'   => 'bpi_category',
+                            'parent'     => $cat,
+                            'hide_empty' => false,
+                        ]);
+                        foreach ($subs as $term) {
+                            echo '<option value="' . esc_attr($term->term_id) . '" ' . selected($sub, $term->term_id, false) . '>' . esc_html($term->name) . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+                <button type="submit"><?php _e('Keresés', 'bpi'); ?></button>
+            </form>
+            <?php
+            if ($keyword || $cat || $sub) {
+                $tax_query = [];
+                if ($sub) {
+                    $tax_query[] = [
+                        'taxonomy' => 'bpi_category',
+                        'field'    => 'term_id',
+                        'terms'    => $sub,
+                    ];
+                } elseif ($cat) {
+                    $tax_query[] = [
+                        'taxonomy' => 'bpi_category',
+                        'field'    => 'term_id',
+                        'terms'    => $cat,
+                    ];
+                }
+
+                $args = [
+                    'post_type'      => 'bpi_institution',
+                    's'              => $keyword,
+                    'tax_query'      => $tax_query,
+                    'posts_per_page' => -1,
+                ];
+                $query = new \WP_Query($args);
+                if ($query->have_posts()) {
+                    echo '<div class="bpi-results-grid">';
+                    while ($query->have_posts()) {
+                        $query->the_post();
+                        $address = get_post_meta(get_the_ID(), 'bpi_address', true);
+                        $phone   = get_post_meta(get_the_ID(), 'bpi_phone', true);
+                        $website = get_post_meta(get_the_ID(), 'bpi_website', true);
+                        $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
+                        $extra   = get_post_meta(get_the_ID(), 'bpi_extra', true);
+                        echo '<div class="bpi-result-card">';
+                        echo '<h3>' . get_the_title() . '</h3>';
+                        if ($address) {
+                            echo '<p>' . esc_html($address) . '</p>';
+                        }
+                        echo '<div class="bpi-card-details" style="display:none;">';
+                        echo '<h3>' . get_the_title() . '</h3>';
+                        if ($address) {
+                            echo '<p><strong>' . __('Cím', 'bpi') . ':</strong> ' . esc_html($address) . '</p>';
+                            echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
+                        }
+                        if ($phone) {
+                            echo '<p><strong>' . __('Telefon', 'bpi') . ':</strong> ' . esc_html($phone) . '</p>';
+                        }
+                        if ($website) {
+                            echo '<p><a href="' . esc_url($website) . '" target="_blank">' . esc_html($website) . '</a></p>';
+                        }
+                        if ($email) {
+                            echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
+                        }
+                        if (!empty($extra) && is_array($extra)) {
+                            echo '<ul>';
+                            foreach ($extra as $row) {
+                                if (empty($row['label']) && empty($row['value'])) {
+                                    continue;
+                                }
+                                echo '<li>' . esc_html($row['label']) . ': ' . esc_html($row['value']) . '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                    wp_reset_postdata();
+                } else {
+                    echo '<p>' . __('Nincs találat.', 'bpi') . '</p>';
+                }
+            } else {
+                foreach ($top_terms as $term) {
                     $subs = get_terms([
                         'taxonomy'   => 'bpi_category',
-                        'parent'     => $cat,
+                        'parent'     => $term->term_id,
                         'hide_empty' => false,
                     ]);
-                    foreach ($subs as $term) {
-                        echo '<option value="' . esc_attr($term->term_id) . '" ' . selected($sub, $term->term_id, false) . '>' . esc_html($term->name) . '</option>';
+                    if (empty($subs)) {
+                        continue;
                     }
+                    echo '<div class="bpi-main-category">';
+                    echo '<h2>' . esc_html($term->name) . '</h2>';
+                    echo '<div class="bpi-subcategory-scroll">';
+                    foreach ($subs as $sterm) {
+                        $url = add_query_arg([
+                            'bpi_cat' => $term->term_id,
+                            'bpi_sub' => $sterm->term_id,
+                        ]);
+                        echo '<a class="bpi-subcard" href="' . esc_url($url) . '">' . esc_html($sterm->name) . '</a>';
+                    }
+                    echo '</div>';
+                    echo '</div>';
                 }
-                ?>
-            </select>
-            <input type="text" name="bpi_street" value="<?php echo esc_attr($street); ?>" placeholder="<?php _e('Utcanév', 'bpi'); ?>" />
-            <button type="submit"><?php _e('Keresés', 'bpi'); ?></button>
-        </form>
+            }
+            ?>
+            <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close">&times;</span><div class="bpi-modal-body"></div></div></div>
+        </div>
         <?php
-        if ($keyword || $cat || $sub || $street) {
-            $tax_query = [];
-            if ($sub) {
-                $tax_query[] = [
-                    'taxonomy' => 'bpi_category',
-                    'field'    => 'term_id',
-                    'terms'    => $sub,
-                ];
-            } elseif ($cat) {
-                $tax_query[] = [
-                    'taxonomy' => 'bpi_category',
-                    'field'    => 'term_id',
-                    'terms'    => $cat,
-                ];
-            }
-
-            $meta_query = [];
-            if ($street) {
-                $meta_query[] = [
-                    'key'     => 'bpi_streets',
-                    'value'   => $street,
-                    'compare' => 'LIKE',
-                ];
-            }
-
-            $args = [
-                'post_type'      => 'bpi_institution',
-                's'              => $keyword,
-                'tax_query'      => $tax_query,
-                'meta_query'     => $meta_query,
-                'posts_per_page' => -1,
-            ];
-            $query = new \WP_Query($args);
-            if ($query->have_posts()) {
-                echo '<ul class="bpi-results">';
-                while ($query->have_posts()) {
-                    $query->the_post();
-                    $address = get_post_meta(get_the_ID(), 'bpi_address', true);
-                    $phone   = get_post_meta(get_the_ID(), 'bpi_phone', true);
-                    $website = get_post_meta(get_the_ID(), 'bpi_website', true);
-                    $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
-                    echo '<li class="bpi-result">';
-                    echo '<h3>' . get_the_title() . '</h3>';
-                    if ($address) {
-                        $map = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address);
-                        echo '<div><a href="' . esc_url($map) . '" target="_blank">' . esc_html($address) . '</a></div>';
-                    }
-                    if ($phone) {
-                        echo '<div><a href="tel:' . esc_attr($phone) . '">' . esc_html($phone) . '</a></div>';
-                    }
-                    if ($website) {
-                        echo '<div><a href="' . esc_url($website) . '" target="_blank">' . esc_html($website) . '</a></div>';
-                    }
-                    if ($email) {
-                        echo '<div><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></div>';
-                    }
-                    echo '</li>';
-                }
-                echo '</ul>';
-                wp_reset_postdata();
-            } else {
-                echo '<p>' . __('Nincs találat.', 'bpi') . '</p>';
-            }
-        }
         return ob_get_clean();
     }
 }
