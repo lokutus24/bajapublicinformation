@@ -7,17 +7,21 @@
 namespace Inc\Base;
 
 class BajaPublicInformationActivate
-{	
+{
 
-	public static function BajaPublicInformationactivate(){
+        public static function BajaPublicInformationactivate(){
 
-		flush_rewrite_rules();
+                // Ensure custom post types and taxonomies are registered for rewrite rules
+                $cpt = new BpiCustomPostType();
+                $cpt->register();
 
-		$default = array();
+                flush_rewrite_rules();
 
-		if ( ! get_option( 'bpi' ) ) {
-			update_option( 'bpi', $default );
-		}
-	}
+                $default = array();
+
+                if ( ! get_option( 'bpi' ) ) {
+                        update_option( 'bpi', $default );
+                }
+        }
 
 }
