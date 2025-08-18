@@ -2,11 +2,16 @@ jQuery(document).ready(function($){
     let selectedCat = 0;
     let selectedSub = 0;
 
+    $('#bpi-category-toggle').on('click', function(){
+        $('.bpi-category-dropdown').toggleClass('open');
+    });
+
     $('.bpi-cat-item').on('click', function(e){
         selectedCat = $(this).data('id');
         selectedSub = 0;
         $('.bpi-cat-item, .bpi-sub-item').removeClass('selected');
         $(this).addClass('selected');
+        $('.bpi-category-dropdown').removeClass('open');
         e.stopPropagation();
     });
 
@@ -15,6 +20,7 @@ jQuery(document).ready(function($){
         selectedSub = $(this).data('id');
         $('.bpi-sub-item').removeClass('selected');
         $(this).addClass('selected');
+        $('.bpi-category-dropdown').removeClass('open');
         e.stopPropagation();
     });
 
