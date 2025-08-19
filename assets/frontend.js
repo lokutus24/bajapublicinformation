@@ -7,6 +7,25 @@ jQuery(document).ready(function($){
   const $selectedMain = $('#bpi-selected-main');
   const $selectedSub = $('#bpi-selected-sub');
 
+  function performSearch(){
+    const term = $('#bpi-live-search').val();
+    if(term.length < 3){
+      $('#bpi-live-results').empty();
+      return;
+    }
+    $.post(bpiAjax.ajax_url, {
+      action: 'bpi_live_search',
+      keyword: term,
+      cat: selectedCat,
+      sub: selectedSub
+    }, function(response){
+      $('#bpi-live-results').html(response);
+      bindModal();
+      bindStreetFilter();
+      bindPhoneToggle();
+    });
+  }
+
   // Toggle gomb
   $('#bpi-category-toggle').on('click', function(e){
     e.stopPropagation();
@@ -63,6 +82,7 @@ jQuery(document).ready(function($){
       $dropdown.removeClass('open');
       $list.stop(true, true).slideUp(150);
     }
+    performSearch();
   });
 
   // Ablakméret váltáskor tisztítsuk az állapotot
@@ -87,6 +107,7 @@ jQuery(document).ready(function($){
 
     $dropdown.removeClass('open');
     $list.stop(true, true).slideUp(150);
+    performSearch();
   });
 
   $('.bpi-category-list > .bpi-item-default').on('click', function(e){
@@ -98,6 +119,7 @@ jQuery(document).ready(function($){
     $selectedSub.hide().empty();
     $dropdown.removeClass('open');
     $list.stop(true, true).slideUp(150);
+    performSearch();
   });
 
   $('.bpi-sub-list > .bpi-item-default').on('click', function(e){
@@ -112,6 +134,7 @@ jQuery(document).ready(function($){
     $selectedSub.hide().empty();
     $dropdown.removeClass('open');
     $list.stop(true, true).slideUp(150);
+    performSearch();
   });
 
   $selectedSub.on('click', '.bpi-remove-sub', function(e){
@@ -119,6 +142,7 @@ jQuery(document).ready(function($){
     selectedSub = 0;
     $('.bpi-sub-item').removeClass('selected');
     $selectedSub.hide().empty();
+    performSearch();
   });
 
   // --- MODÁL ---
@@ -162,24 +186,7 @@ function bindStreetFilter(){
   }
 
   // Live search
-  $('#bpi-live-search').on('input', function(){
-    const term = $(this).val();
-    if(term.length < 3){
-      $('#bpi-live-results').empty();
-      return;
-    }
-      $.post(bpiAjax.ajax_url, {
-      action: 'bpi_live_search',
-      keyword: term,
-      cat: selectedCat,
-      sub: selectedSub
-      }, function(response){
-       $('#bpi-live-results').html(response);
-       bindModal();
-       bindStreetFilter();
-       bindPhoneToggle();
-      });
-    });
+  $('#bpi-live-search').on('input', performSearch);
 
   bindModal();
   bindPhoneToggle();
