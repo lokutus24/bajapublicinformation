@@ -138,6 +138,18 @@ jQuery(document).ready(function($){
     });
   }
 
+  function bindStreetFilter(){
+    $('#bpi-street-search').on('input', function(){
+      const street = $(this).val().toLowerCase();
+      $('.bpi-result-card').each(function(){
+        const streets = ($(this).data('streets') || '').toLowerCase();
+        $(this).toggle(streets.indexOf(street) !== -1);
+      });
+      const count = $('.bpi-result-card:visible').length;
+      $('.bpi-results-count').text('Találatok: ' + count);
+    });
+  }
+
   // Live search
   $('#bpi-live-search').on('input', function(){
     const term = $(this).val();
@@ -153,6 +165,7 @@ jQuery(document).ready(function($){
     }, function(response){
       $('#bpi-live-results').html(response);
       bindModal();
+      bindStreetFilter();
     });
   });
 

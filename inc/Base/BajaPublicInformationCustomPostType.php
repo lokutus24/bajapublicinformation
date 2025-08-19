@@ -278,6 +278,19 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         ];
         $query = new \WP_Query($args);
         if ($query->have_posts()) {
+            $sub_name = $sub ? get_term($sub, 'bpi_category') : '';
+            $cat_name = $cat ? get_term($cat, 'bpi_category') : '';
+            echo '<div class="bpi-results-info">';
+            if ($sub_name && !is_wp_error($sub_name)) {
+                echo '<div class="bpi-subcategory">' . esc_html($sub_name->name) . '</div>';
+            }
+            if ($cat_name && !is_wp_error($cat_name)) {
+                echo '<div class="bpi-main-category">' . esc_html($cat_name->name) . '</div>';
+            }
+            echo '<div class="bpi-results-count">' . sprintf(__('Találatok: %d', 'bpi'), $query->found_posts) . '</div>';
+            echo '<p class="bpi-question">' . __('Melyik a körzeti háziorvosom?', 'bpi') . '</p>';
+            echo '<input type="text" id="bpi-street-search" placeholder="' . esc_attr__('Írja be az utca nevét..', 'bpi') . '" />';
+            echo '</div>';
             echo '<div class="bpi-results-grid">';
             while ($query->have_posts()) {
                 $query->the_post();
@@ -286,7 +299,8 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 $website = get_post_meta(get_the_ID(), 'bpi_website', true);
                 $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
                 $extra   = get_post_meta(get_the_ID(), 'bpi_extra', true);
-                echo '<div class="bpi-result-card">';
+                $streets = get_post_meta(get_the_ID(), 'bpi_streets', true);
+                echo '<div class="bpi-result-card" data-streets="' . esc_attr($streets) . '">';
                 echo '<h3>' . get_the_title() . '</h3>';
                 if ($address) {
                     echo '<p>' . esc_html($address) . '</p>';
