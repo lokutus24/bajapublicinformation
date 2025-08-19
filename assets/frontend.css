@@ -58,7 +58,10 @@
     font-size: 1.5rem;
     cursor: pointer;
 }
-.bpi-modal-body .bpi-card-category{margin-bottom:0.5rem;}
+.bpi-modal-body .bpi-card-category{
+    margin-bottom:0.5rem;
+    display:inline-flex;
+}
 
 .bpi-search-card{
 	max-width: 869px;
