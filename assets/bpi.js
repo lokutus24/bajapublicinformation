@@ -23,5 +23,3 @@ window.addEventListener("load", function() {
 	}
 
 });
-
-

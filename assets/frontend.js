@@ -157,8 +157,8 @@ jQuery(document).ready(function($){
       bindPhoneToggle();
     });
 
-    $modal.off('click').on('click', function(e){
-      if($(e.target).hasClass('bpi-close') || e.target === this){
+    $modal.off('click').on('click', function (e) {
+      if ($(e.target).closest('.bpi-close').length || e.target === this) {
         $modal.removeClass('open');
       }
     });

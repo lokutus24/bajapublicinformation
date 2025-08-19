@@ -241,7 +241,7 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             </div>
         </div>
         <div id="bpi-live-results"></div>
-        <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close">&times;</span><div class="bpi-modal-body"></div></div></div>
+        <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close"><img class="search-icon" src="<?php echo esc_url($this->pluginUrl . 'assets/img/circle-close.svg'); ?>" alt="Search" /></span><div class="bpi-modal-body"></div></div></div>
         <?php
         return ob_get_clean();
     }
@@ -327,10 +327,7 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     echo '<div class="bpi-card-category">' . esc_html($category) . '</div>';
                 }
                 echo '<h3>' . get_the_title() . '</h3>';
-                if ($address) {
-                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
-                    echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
-                }
+
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
                     echo '<span class="bpi-phone-number" data-full="' . esc_attr($phone) . '" data-mask="' . esc_attr($masked_phone) . '">' . esc_html($masked_phone) . '</span>';
@@ -343,6 +340,12 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 if ($email) {
                     echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
                 }
+                
+                if ($address) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
+                    echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
+                }
+                
                 if (!empty($extra) && is_array($extra)) {
                     echo '<ul>';
                     foreach ($extra as $row) {

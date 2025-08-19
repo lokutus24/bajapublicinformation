@@ -51,7 +51,13 @@
 .bpi-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:999;}
 .bpi-modal.open{display:flex;}
 .bpi-modal-content{background:#fff;padding:1.5rem;border-radius:8px;max-width:500px;width:90%;max-height:80%;overflow:auto;position:relative;}
-.bpi-close{position:absolute;top:0.5rem;right:0.5rem;font-size:1.5rem;cursor:pointer;}
+.bpi-close{
+	position: absolute;
+    top: -0.5rem;
+    right: 0.1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
 .bpi-modal-body .bpi-card-category{margin-bottom:0.5rem;}
 
 .bpi-search-card{
