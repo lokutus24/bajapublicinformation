@@ -79,15 +79,7 @@
     display: none;
     min-width: 338px;
     box-shadow: none;
-    border-radius: 5px;
-}
-
-/* alkategória lista */
-.bpi-cat-item {
-  position: relative;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  white-space: nowrap;
+@@ -89,42 +91,72 @@
   color: #613A24;
 }
 .bpi-cat-item:hover { 
