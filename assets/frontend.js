@@ -154,6 +154,7 @@ jQuery(document).ready(function($){
       e.stopPropagation();
       $modalBody.html($(this).closest('.bpi-result-card').find('.bpi-card-details').html());
       $modal.addClass('open');
+      bindPhoneToggle();
     });
 
     $modal.off('click').on('click', function(e){
