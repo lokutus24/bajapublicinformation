@@ -50,13 +50,16 @@
 .bpi-category-toggle {
     background: #fff;
     cursor: pointer;
-    justify-content: space-between;
     color: #613A24;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .bpi-arrow {
   font-size: 10px; /* kísérletezd ki */
   line-height: 1;
   color: #613A2499;
+  margin-left: auto;
 }
 .bpi-category-dropdown.open .bpi-arrow{transform:rotate(180deg);}
 /* közös beállítások */
@@ -126,5 +129,25 @@
 }
 .bpi-sub-item:hover {
   background: #f0f6ff;
+  color: #098FDB;
+}
+
+.bpi-badge {
+  background: #f0f6ff;
+  color: #098FDB;
+  border-radius: 12px;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.bpi-badge .bpi-remove-sub {
+  cursor: pointer;
+}
+
+.bpi-cat-item.selected::before,
+.bpi-sub-item.selected::before {
+  content: "\2713";
+  margin-right: 0.5rem;
   color: #098FDB;
 }

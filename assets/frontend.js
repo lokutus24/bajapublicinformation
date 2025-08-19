@@ -4,6 +4,8 @@ jQuery(document).ready(function($){
 
   const $dropdown = $('.bpi-category-dropdown');
   const $list = $('.bpi-category-list');
+  const $selectedMain = $('#bpi-selected-main');
+  const $selectedSub = $('#bpi-selected-sub');
 
   // Toggle gomb
   $('#bpi-category-toggle').on('click', function(e){
@@ -42,10 +44,24 @@ jQuery(document).ready(function($){
 
   // Megakadályozzuk, hogy mobilon a fő katt zárja a teljes dropdownt
   $('.bpi-cat-item').on('click', function(e){
+    if ($(e.target).closest('.bpi-sub-list').length){
+      return;
+    }
+    e.stopPropagation();
+    selectedCat = $(this).data('id');
+    selectedSub = 0;
+    $('.bpi-cat-item').removeClass('selected');
+    $('.bpi-sub-item').removeClass('selected');
+    $(this).addClass('selected');
+    $selectedMain.text('Kategória: ' + $(this).data('name'));
+    $selectedSub.hide().empty();
+
     if (isMobile()){
-      e.stopPropagation();
       $(this).toggleClass('open')
              .siblings('.bpi-cat-item').removeClass('open');
+    } else {
+      $dropdown.removeClass('open');
+      $list.stop(true, true).slideUp(150);
     }
   });
 
@@ -59,13 +75,50 @@ jQuery(document).ready(function($){
   // Alkategória választás
   $('.bpi-sub-item').on('click', function(e){
     e.stopPropagation();
-    selectedCat = $(this).closest('.bpi-cat-item').data('id');
+    const $cat = $(this).closest('.bpi-cat-item');
+    selectedCat = $cat.data('id');
     selectedSub = $(this).data('id');
     $('.bpi-sub-item').removeClass('selected');
+    $('.bpi-cat-item').removeClass('selected');
     $(this).addClass('selected');
+    $cat.addClass('selected');
+    $selectedMain.text('Kategória: ' + $cat.data('name'));
+    $selectedSub.html($(this).data('name') + ' <span class="bpi-remove-sub">&times;</span>').show();
 
     $dropdown.removeClass('open');
     $list.stop(true, true).slideUp(150);
+  });
+
+  $('.bpi-category-list > .bpi-item-default').on('click', function(e){
+    e.stopPropagation();
+    selectedCat = 0;
+    selectedSub = 0;
+    $('.bpi-cat-item, .bpi-sub-item').removeClass('selected');
+    $selectedMain.text('Kategória');
+    $selectedSub.hide().empty();
+    $dropdown.removeClass('open');
+    $list.stop(true, true).slideUp(150);
+  });
+
+  $('.bpi-sub-list > .bpi-item-default').on('click', function(e){
+    e.stopPropagation();
+    const $cat = $(this).closest('.bpi-cat-item');
+    selectedCat = $cat.data('id');
+    selectedSub = 0;
+    $('.bpi-cat-item').removeClass('selected');
+    $('.bpi-sub-item').removeClass('selected');
+    $cat.addClass('selected');
+    $selectedMain.text('Kategória: ' + $cat.data('name'));
+    $selectedSub.hide().empty();
+    $dropdown.removeClass('open');
+    $list.stop(true, true).slideUp(150);
+  });
+
+  $selectedSub.on('click', '.bpi-remove-sub', function(e){
+    e.stopPropagation();
+    selectedSub = 0;
+    $('.bpi-sub-item').removeClass('selected');
+    $selectedSub.hide().empty();
   });
 
   // --- MODÁL ---
