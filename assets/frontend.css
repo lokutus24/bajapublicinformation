@@ -289,7 +289,10 @@
     margin-right: auto;
     justify-content: flex-start;
 }
-.bpi-category-block{margin-bottom:2rem;}
+.bpi-category-block{
+	margin-bottom:2rem;
+	width: 100%;
+}
 .bpi-subcategories-grid{
     display: flex;
     flex-wrap: wrap;
