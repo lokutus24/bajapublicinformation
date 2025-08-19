@@ -281,16 +281,18 @@
 
 #bpi-category-cards {
     margin-top: 2rem;
-    display: grid;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 1rem;
-    margin-left: 14%;
+    max-width: 869px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: flex-start;
 }
 .bpi-category-block{margin-bottom:2rem;}
 .bpi-subcategories-grid{
-	display: flex;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 .bpi-subcard{
