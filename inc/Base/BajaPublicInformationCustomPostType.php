@@ -213,8 +213,8 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             <div class="bpi-category-dropdown">
                 <span id="bpi-category-toggle" class="bpi-category-toggle">
                     <span id="bpi-selected-main"><?php _e('Kategória', 'bpi'); ?></span>
-                    <span id="bpi-selected-sub" class="bpi-badge" style="display:none;"></span>
                     <span class="bpi-arrow">&#9660;</span>
+                    <span id="bpi-selected-sub" class="bpi-badge" style="display:none;"></span>
                 </span>
                 <ul class="bpi-category-list">
                     <li class="bpi-item-default">Összes kategória</li>
