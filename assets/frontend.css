@@ -167,15 +167,9 @@
   color: #098FDB;
 }
 
-.bpi-badge {
-  background: #f0f6ff;
-  color: #098FDB;
-  border-radius: 5px;
-  padding: 0.5rem 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-.bpi-badge .bpi-remove-sub {
-  cursor: pointer;
-}
+.bpi-results-info{margin-bottom:1rem;}
+.bpi-results-info .bpi-subcategory{font-weight:600;}
+.bpi-results-info .bpi-main-category{text-align:center;font-weight:600;}
+.bpi-results-count{text-align:center;margin:0.5rem 0;}
+.bpi-question{margin-bottom:0.5rem;}
+#bpi-street-search{width:100%;border:1px solid #E7E1DE;border-radius:5px;height:40px;margin-bottom:1rem;}

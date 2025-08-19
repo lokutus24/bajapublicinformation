@@ -139,12 +139,15 @@ jQuery(document).ready(function($){
     });
   }
 
-  function bindPhoneToggle(){
-    $('.bpi-phone-toggle').off('click').on('click', function(e){
-      e.stopPropagation();
-      const $num = $(this).siblings('.bpi-phone-number');
-      $num.text($num.data('full'));
-      $(this).remove();
+function bindStreetFilter(){
+    $('#bpi-street-search').on('input', function(){
+      const street = $(this).val().toLowerCase();
+      $('.bpi-result-card').each(function(){
+        const streets = ($(this).data('streets') || '').toLowerCase();
+        $(this).toggle(streets.indexOf(street) !== -1);
+      });
+      const count = $('.bpi-result-card:visible').length;
+      $('.bpi-results-count').text('Találatok: ' + count);
     });
   }
 
@@ -161,9 +164,9 @@ jQuery(document).ready(function($){
       cat: selectedCat,
       sub: selectedSub
     }, function(response){
-      $('#bpi-live-results').html(response);
+       $('#bpi-live-results').html(response);
       bindModal();
-      bindPhoneToggle();
+      bindStreetFilter();
     });
   });
 
