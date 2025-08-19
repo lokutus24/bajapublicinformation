@@ -281,11 +281,11 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             $sub_name = $sub ? get_term($sub, 'bpi_category') : '';
             $cat_name = $cat ? get_term($cat, 'bpi_category') : '';
             echo '<div class="bpi-results-info">';
-            if ($sub_name && !is_wp_error($sub_name)) {
-                echo '<div class="bpi-subcategory">' . esc_html($sub_name->name) . '</div>';
-            }
             if ($cat_name && !is_wp_error($cat_name)) {
                 echo '<div class="bpi-main-category">' . esc_html($cat_name->name) . '</div>';
+            }
+            if ($sub_name && !is_wp_error($sub_name)) {
+                echo '<div class="bpi-subcategory">' . esc_html($sub_name->name) . '</div>';
             }
             echo '<div class="bpi-results-count">' . sprintf(__('%d találat', 'bpi'), $query->found_posts) . '</div>';
             echo '<p class="bpi-question">' . __('Melyik a körzeti háziorvosom?', 'bpi') . '</p>';
