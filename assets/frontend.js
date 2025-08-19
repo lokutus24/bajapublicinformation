@@ -139,6 +139,16 @@ jQuery(document).ready(function($){
     });
   }
 
+  function bindPhoneToggle(){
+    $('.bpi-phone-toggle').off('click').on('click', function(e){
+      e.stopPropagation();
+      const $num = $(this).siblings('.bpi-phone-number');
+      const mask = $num.data('mask');
+      const full = $num.data('full');
+      $num.text($num.text() === mask ? full : mask);
+    });
+  }
+
 function bindStreetFilter(){
     $('#bpi-street-search').on('input', function(){
       const street = $(this).val().toLowerCase();
@@ -158,17 +168,18 @@ function bindStreetFilter(){
       $('#bpi-live-results').empty();
       return;
     }
-    $.post(bpiAjax.ajax_url, {
+      $.post(bpiAjax.ajax_url, {
       action: 'bpi_live_search',
       keyword: term,
       cat: selectedCat,
       sub: selectedSub
-    }, function(response){
+      }, function(response){
        $('#bpi-live-results').html(response);
-      bindModal();
-      bindStreetFilter();
+       bindModal();
+       bindStreetFilter();
+       bindPhoneToggle();
+      });
     });
-  });
 
   bindModal();
   bindPhoneToggle();

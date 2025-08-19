@@ -300,10 +300,25 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
                 $extra   = get_post_meta(get_the_ID(), 'bpi_extra', true);
                 $streets = get_post_meta(get_the_ID(), 'bpi_streets', true);
+                $terms   = get_the_terms(get_the_ID(), 'bpi_category');
+                $category = !empty($terms) && !is_wp_error($terms) ? $terms[0]->name : '';
+                $masked_phone = $this->maskPhone($phone);
                 echo '<div class="bpi-result-card" data-streets="' . esc_attr($streets) . '">';
+                echo '<div class="bpi-card-header">';
+                if ($category) {
+                    echo '<div class="bpi-card-category">' . esc_html($category) . '</div>';
+                }
+                echo '<div class="bpi-open-modal"><img src="' . esc_url($this->pluginUrl . 'assets/img/zoom-in.svg') . '" alt="' . esc_attr__('Részletek', 'bpi') . '"></div>';
+                echo '</div>';
                 echo '<h3>' . get_the_title() . '</h3>';
-                if ($address) {
-                    echo '<p>' . esc_html($address) . '</p>';
+                if ($streets) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Körzet utcái: ', 'bpi') . esc_html($streets) . '</span></div>';
+                }
+                if ($phone) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
+                    echo '<span class="bpi-phone-number" data-full="' . esc_attr($phone) . '" data-mask="' . esc_attr($masked_phone) . '">' . esc_html($masked_phone) . '</span>';
+                    echo '<span class="bpi-phone-toggle"><img src="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '" alt="' . esc_attr__('Telefonszám megjelenítése', 'bpi') . '"></span>';
+                    echo '</div>';
                 }
                 echo '<div class="bpi-card-details" style="display:none;">';
                 echo '<h3>' . get_the_title() . '</h3>';
@@ -339,5 +354,22 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             echo '<p>' . __('Nincs találat.', 'bpi') . '</p>';
         }
         wp_die();
+    }
+
+    private function maskPhone($phone)
+    {
+        $masked = '';
+        $digits = 0;
+        $length = strlen($phone);
+        for ($i = 0; $i < $length; $i++) {
+            $char = $phone[$i];
+            if (ctype_digit($char)) {
+                $digits++;
+                $masked .= ($digits > 4) ? 'x' : $char;
+            } else {
+                $masked .= $char;
+            }
+        }
+        return $masked;
     }
 }
