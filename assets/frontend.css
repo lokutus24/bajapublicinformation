@@ -9,10 +9,28 @@
 .bpi-subcategory-scroll::-webkit-scrollbar{height:6px;}
 .bpi-subcategory-scroll::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px;}
 .bpi-subcard{background:#fff;border-radius:8px;padding:0.5rem 1rem;white-space:nowrap;text-decoration:none;color:#333;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
-.bpi-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;}
+.bpi-results-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* pontosan 2 oszlop */
+  gap: 1rem;
+  justify-content: center; /* a grid középre rendezése */
+  max-width: 600px; /* opcionális: két kártya szélességéhez igazítva */
+  margin: 0 auto;   /* középre az egész grid */
+}
 #bpi-live-results{margin-top:1rem;}
-.bpi-result-card{background:#fff;border-radius:8px;padding:1rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
-.bpi-result-card h3{margin-top:0;margin-bottom:0.5rem;}
+.bpi-result-card{
+	background:#fff;
+	border-radius:8px;
+	padding:1rem;
+	box-shadow:0 1px 3px rgba(0,0,0,0.1);
+	width: 456px;
+	height: 168px;
+}
+.bpi-result-card h3{
+	margin-top:0;
+	margin-bottom:0.5rem;
+	color: #613A24;
+}
 .bpi-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
 .bpi-card-category{font-weight:600;color:#613A24;}
 .bpi-open-modal img{width:16px;height:16px;cursor:pointer;}
@@ -165,6 +183,18 @@
   top: 50%;
   transform: translateY(-50%);
   color: #098FDB;
+}
+.bpi-badge {
+  background: #f0f6ff;
+  color: #098FDB;
+  border-radius: 12px;
+  padding: 0.5rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.bpi-badge .bpi-remove-sub {
+  cursor: pointer;
 }
 
 .bpi-results-info{margin-bottom:1rem;}
