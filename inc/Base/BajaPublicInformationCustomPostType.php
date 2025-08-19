@@ -239,9 +239,9 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div id="bpi-live-results"></div>
-            <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close">&times;</span><div class="bpi-modal-body"></div></div></div>
         </div>
+        <div id="bpi-live-results"></div>
+        <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close">&times;</span><div class="bpi-modal-body"></div></div></div>
         <?php
         return ob_get_clean();
     }

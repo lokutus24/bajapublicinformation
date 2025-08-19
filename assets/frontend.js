@@ -126,8 +126,9 @@ jQuery(document).ready(function($){
     const $modal = $('#bpi-modal');
     const $modalBody = $modal.find('.bpi-modal-body');
 
-    $('.bpi-result-card').off('click').on('click', function(){
-      $modalBody.html($(this).find('.bpi-card-details').html());
+    $('.bpi-open-modal').off('click').on('click', function(e){
+      e.stopPropagation();
+      $modalBody.html($(this).closest('.bpi-result-card').find('.bpi-card-details').html());
       $modal.addClass('open');
     });
 
@@ -138,7 +139,7 @@ jQuery(document).ready(function($){
     });
   }
 
-  function bindStreetFilter(){
+function bindStreetFilter(){
     $('#bpi-street-search').on('input', function(){
       const street = $(this).val().toLowerCase();
       $('.bpi-result-card').each(function(){
@@ -163,11 +164,12 @@ jQuery(document).ready(function($){
       cat: selectedCat,
       sub: selectedSub
     }, function(response){
-      $('#bpi-live-results').html(response);
+       $('#bpi-live-results').html(response);
       bindModal();
       bindStreetFilter();
     });
   });
 
   bindModal();
+  bindPhoneToggle();
 });
