@@ -32,7 +32,19 @@
 	color: #613A24;
 }
 .bpi-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
-.bpi-card-category{font-weight:600;color:#613A24;}
+.bpi-card-category{
+	ont-weight: 500;
+    background: #f0f6ff;
+    color: #098FDB;
+    padding: 0.2rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: 1px solid #098FDB;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 24px;
+}
 .bpi-open-modal img{width:16px;height:16px;cursor:pointer;}
 .bpi-field{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;color:#613A24;}
 .bpi-field img{width:16px;height:16px;}
@@ -197,9 +209,47 @@
   cursor: pointer;
 }
 
-.bpi-results-info{margin-bottom:1rem;}
-.bpi-results-info .bpi-subcategory{font-weight:600;}
-.bpi-results-info .bpi-main-category{text-align:center;font-weight:600;}
-.bpi-results-count{text-align:center;margin:0.5rem 0;}
-.bpi-question{margin-bottom:0.5rem;}
-#bpi-street-search{width:100%;border:1px solid #E7E1DE;border-radius:5px;height:40px;margin-bottom:1rem;}
+.bpi-results-info{
+	margin-bottom:1rem;
+}
+.bpi-results-info .bpi-subcategory{
+	font-weight:600;
+}
+.bpi-results-info .bpi-main-category{
+	text-align:center;
+	font-weight:600;
+}
+.bpi-results-count{
+	text-align:center;
+	margin:0.5rem 0;
+}
+.bpi-question{
+	margin-bottom:0.5rem;
+	text-align: center;
+}
+
+.bpi-street-input-wrapper{
+  position: relative;
+  max-width: 400px;             /* ha középre akarod: */
+  margin: 0 auto 1rem;          /* középre a wrapper */
+}
+
+#bpi-street-search{
+  width: 100%;
+  border: 1px solid #E7E1DE;
+  border-radius: 5px;
+  height: 40px;
+  padding-right: 2.5rem;        /* hely az ikonnak */
+  border-radius: 60px;
+}
+
+.bpi-street-search-icon{
+  position: absolute;
+  right: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;                  /* állítható */
+  height: 18px;
+  pointer-events: none;         /* ne kattintható legyen */
+  opacity: .8;                  /* ízlés szerint */
+}

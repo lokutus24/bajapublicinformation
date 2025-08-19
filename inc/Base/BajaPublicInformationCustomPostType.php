@@ -287,9 +287,11 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             if ($cat_name && !is_wp_error($cat_name)) {
                 echo '<div class="bpi-main-category">' . esc_html($cat_name->name) . '</div>';
             }
-            echo '<div class="bpi-results-count">' . sprintf(__('Találatok: %d', 'bpi'), $query->found_posts) . '</div>';
+            echo '<div class="bpi-results-count">' . sprintf(__('%d találat', 'bpi'), $query->found_posts) . '</div>';
             echo '<p class="bpi-question">' . __('Melyik a körzeti háziorvosom?', 'bpi') . '</p>';
-            echo '<input type="text" id="bpi-street-search" placeholder="' . esc_attr__('Írja be az utca nevét..', 'bpi') . '" />';
+            echo '<div class="bpi-street-input-wrapper">'; // wrapper
+            echo '  <input type="text" id="bpi-street-search" placeholder="' . esc_attr__('Írja be az utca nevét..', 'bpi') . '" />';
+            echo '  <img class="bpi-street-search-icon" src="' . esc_url( $this->pluginUrl . 'assets/img/street-search-icon.svg' ) . '" alt="Search" />';
             echo '</div>';
             echo '<div class="bpi-results-grid">';
             while ($query->have_posts()) {
