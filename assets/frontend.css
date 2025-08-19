@@ -52,6 +52,7 @@
 .bpi-modal.open{display:flex;}
 .bpi-modal-content{background:#fff;padding:1.5rem;border-radius:8px;max-width:500px;width:90%;max-height:80%;overflow:auto;position:relative;}
 .bpi-close{position:absolute;top:0.5rem;right:0.5rem;font-size:1.5rem;cursor:pointer;}
+.bpi-modal-body .bpi-card-category{margin-bottom:0.5rem;}
 
 .bpi-search-card{
 	max-width: 869px;
