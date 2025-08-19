@@ -212,7 +212,9 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             </div>
             <div class="bpi-category-dropdown">
                 <span id="bpi-category-toggle" class="bpi-category-toggle">
-                    <?php _e('Kategória', 'bpi'); ?> <span class="bpi-arrow">&#9660;</span>
+                    <span id="bpi-selected-main"><?php _e('Kategória', 'bpi'); ?></span>
+                    <span class="bpi-arrow">&#9660;</span>
+                    <span id="bpi-selected-sub" class="bpi-badge" style="display:none;"></span>
                 </span>
                 <ul class="bpi-category-list">
                     <li class="bpi-item-default">Összes kategória</li>
@@ -223,13 +225,13 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                             'hide_empty' => false,
                         ]);
                     ?>
-                        <li class="bpi-cat-item" data-id="<?php echo esc_attr($term->term_id); ?>">
+                        <li class="bpi-cat-item" data-id="<?php echo esc_attr($term->term_id); ?>" data-name="<?php echo esc_attr($term->name); ?>">
                             <?php echo esc_html($term->name); ?>
                             <?php if (!empty($subs)) : ?>
                                 <ul class="bpi-sub-list">
                                     <li class="bpi-item-default">Összes alkategória</li>
                                     <?php foreach ($subs as $sub) : ?>
-                                        <li class="bpi-sub-item" data-id="<?php echo esc_attr($sub->term_id); ?>"><?php echo esc_html($sub->name); ?></li>
+                                        <li class="bpi-sub-item" data-id="<?php echo esc_attr($sub->term_id); ?>" data-name="<?php echo esc_attr($sub->name); ?>"><?php echo esc_html($sub->name); ?></li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>

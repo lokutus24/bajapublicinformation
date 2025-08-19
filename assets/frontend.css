@@ -50,8 +50,10 @@
 .bpi-category-toggle {
     background: #fff;
     cursor: pointer;
-    justify-content: space-between;
     color: #613A24;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .bpi-arrow {
   font-size: 10px; /* kísérletezd ki */
@@ -111,11 +113,11 @@
   display: block;
 }
 .bpi-item-default{
-	font-weight: 600;
-	padding: 0.4rem 1rem;
-  	cursor: pointer;
-  	white-space: nowrap;
-  	color: #613A24;
+        font-weight: 600;
+        padding: 0.4rem 1rem;
+        cursor: pointer;
+        white-space: nowrap;
+        color: #613A24;
 }
 /* alkategória elemek */
 .bpi-sub-item {
@@ -126,5 +128,35 @@
 }
 .bpi-sub-item:hover {
   background: #f0f6ff;
+  color: #098FDB;
+}
+
+.bpi-item-default,
+.bpi-cat-item,
+.bpi-sub-item {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.bpi-badge {
+  background: #f0f6ff;
+  color: #098FDB;
+  border-radius: 12px;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.bpi-badge .bpi-remove-sub {
+  cursor: pointer;
+}
+
+.bpi-cat-item.selected::before,
+.bpi-sub-item.selected::before {
+  content: "\2713";
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: #098FDB;
 }
