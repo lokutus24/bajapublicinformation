@@ -239,9 +239,9 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div id="bpi-live-results"></div>
-            <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close">&times;</span><div class="bpi-modal-body"></div></div></div>
         </div>
+        <div id="bpi-live-results"></div>
+        <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close">&times;</span><div class="bpi-modal-body"></div></div></div>
         <?php
         return ob_get_clean();
     }
@@ -285,17 +285,35 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 $phone   = get_post_meta(get_the_ID(), 'bpi_phone', true);
                 $website = get_post_meta(get_the_ID(), 'bpi_website', true);
                 $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
+                $streets = get_post_meta(get_the_ID(), 'bpi_streets', true);
                 $extra   = get_post_meta(get_the_ID(), 'bpi_extra', true);
+                $cats    = get_the_terms(get_the_ID(), 'bpi_category');
+                $catName = ($cats && !is_wp_error($cats)) ? $cats[0]->name : '';
+
                 echo '<div class="bpi-result-card">';
+                echo '<div class="bpi-card-header">';
+                if ($catName) {
+                    echo '<span class="bpi-card-category">' . esc_html($catName) . '</span>';
+                }
+                echo '<span class="bpi-open-modal"><img src="' . esc_url($this->pluginUrl . 'assets/img/zoom-in.svg') . '" alt="' . esc_attr__('Részletek', 'bpi') . '"></span>';
+                echo '</div>';
                 echo '<h3>' . get_the_title() . '</h3>';
-                if ($address) {
-                    echo '<p>' . esc_html($address) . '</p>';
+                if ($streets) {
+                    echo '<div class="bpi-field bpi-streets"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt="" /><span>' . esc_html($streets) . '</span></div>';
+                }
+                if ($phone) {
+                    $prefix = substr($phone, 0, 6);
+                    $masked = trim($prefix) . ' / xxx xxxx';
+                    echo '<div class="bpi-field bpi-phone"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="" /><span class="bpi-phone-number" data-full="' . esc_attr($phone) . '">' . esc_html($masked) . '</span><span class="bpi-phone-toggle"><img src="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '" alt="" /></span></div>';
                 }
                 echo '<div class="bpi-card-details" style="display:none;">';
                 echo '<h3>' . get_the_title() . '</h3>';
                 if ($address) {
                     echo '<p><strong>' . __('Cím', 'bpi') . ':</strong> ' . esc_html($address) . '</p>';
                     echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
+                }
+                if ($streets) {
+                    echo '<p><strong>' . __('Körzet utcái', 'bpi') . ':</strong> ' . esc_html($streets) . '</p>';
                 }
                 if ($phone) {
                     echo '<p><strong>' . __('Telefon', 'bpi') . ':</strong> ' . esc_html($phone) . '</p>';
