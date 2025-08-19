@@ -21,7 +21,7 @@ final class Initial
                         Pages\BajaPublicInformationDashboard::class,
                         Base\BajaPublicInformationEnqueue::class,
                         Base\BajaPublicInformationSettingsLink::class,
-                        Base\BpiCustomPostType::class,
+                        Base\BajaPublicInformationCustomPostType::class,
                 ];
 		
 	}

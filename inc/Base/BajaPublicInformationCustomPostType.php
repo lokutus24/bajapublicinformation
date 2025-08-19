@@ -7,7 +7,7 @@ use Inc\Base\BajaPublicInformationBaseController;
 /**
  * Registers the Lakossági Információk custom post type, taxonomy and meta fields.
  */
-class BpiCustomPostType extends BajaPublicInformationBaseController
+class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseController
 {
     /**
      * Hook into WordPress.
@@ -208,13 +208,14 @@ class BpiCustomPostType extends BajaPublicInformationBaseController
         <div class="bpi-search-card">
             <div class="bpi-input-wrapper">
                 <input type="text" id="bpi-live-search" placeholder="<?php _e('Keresés a lakossági információk között', 'bpi'); ?>" />
-                <span class="bpi-search-icon">&#128269;</span>
+                <span class="bpi-search-icon"><img class="search-icon" src="<?php echo esc_url($this->pluginUrl . 'assets/img/search-svgrepo-com.svg'); ?>" alt="Search" /></span>
             </div>
             <div class="bpi-category-dropdown">
-                <button type="button" id="bpi-category-toggle" class="bpi-category-toggle">
-                    <?php _e('Kategória szűrés', 'bpi'); ?> <span class="bpi-arrow">&#9660;</span>
-                </button>
+                <span id="bpi-category-toggle" class="bpi-category-toggle">
+                    <?php _e('Kategória', 'bpi'); ?> <span class="bpi-arrow">&#9660;</span>
+                </span>
                 <ul class="bpi-category-list">
+                    <li class="bpi-item-default">Összes kategória</li>
                     <?php foreach ($top_terms as $term) :
                         $subs = get_terms([
                             'taxonomy'   => 'bpi_category',
@@ -226,6 +227,7 @@ class BpiCustomPostType extends BajaPublicInformationBaseController
                             <?php echo esc_html($term->name); ?>
                             <?php if (!empty($subs)) : ?>
                                 <ul class="bpi-sub-list">
+                                    <li class="bpi-item-default">Összes alkategória</li>
                                     <?php foreach ($subs as $sub) : ?>
                                         <li class="bpi-sub-item" data-id="<?php echo esc_attr($sub->term_id); ?>"><?php echo esc_html($sub->name); ?></li>
                                     <?php endforeach; ?>
