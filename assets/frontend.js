@@ -9,7 +9,7 @@ jQuery(document).ready(function($){
 
   function performSearch(){
     const term = $('#bpi-live-search').val();
-    if(term.length < 3){
+    if(term.length < 3 && selectedCat === 0 && selectedSub === 0){
       $('#bpi-live-results').empty();
       return;
     }
@@ -188,6 +188,14 @@ function bindStreetFilter(){
 
   // Live search
   $('#bpi-live-search').on('input', performSearch);
+
+  $('.bpi-subcard').on('click', function(e){
+    e.preventDefault();
+    selectedCat = $(this).data('parent');
+    selectedSub = $(this).data('id');
+    $('#bpi-category-cards').hide();
+    performSearch();
+  });
 
   bindModal();
   bindPhoneToggle();

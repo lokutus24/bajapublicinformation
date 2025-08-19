@@ -279,3 +279,9 @@
   pointer-events: none;         /* ne kattintható legyen */
   opacity: .8;                  /* ízlés szerint */
 }
+
+#bpi-category-cards{margin-top:2rem;}
+.bpi-category-block{margin-bottom:2rem;}
+.bpi-subcategories-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;}
+.bpi-subcard{position:relative;padding-bottom:1.5rem;cursor:pointer;}
+.bpi-subcard-arrow{position:absolute;bottom:0.5rem;right:0.5rem;width:16px;height:16px;}

@@ -240,6 +240,27 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 </ul>
             </div>
         </div>
+        <div id="bpi-category-cards">
+            <?php foreach ($top_terms as $term) :
+                $subs = get_terms([
+                    'taxonomy'   => 'bpi_category',
+                    'parent'     => $term->term_id,
+                    'hide_empty' => false,
+                ]);
+                if (!empty($subs)) : ?>
+                <div class="bpi-category-block">
+                    <h2 class="bpi-main-category"><?php echo esc_html($term->name); ?></h2>
+                    <div class="bpi-subcategories-grid">
+                        <?php foreach ($subs as $sub) : ?>
+                            <div class="bpi-subcard" data-parent="<?php echo esc_attr($term->term_id); ?>" data-id="<?php echo esc_attr($sub->term_id); ?>">
+                                <?php echo esc_html($sub->name); ?>
+                                <img class="bpi-subcard-arrow" src="<?php echo esc_url($this->pluginUrl . 'assets/img/arrow-right.svg'); ?>" alt="" />
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; endforeach; ?>
+        </div>
         <div id="bpi-live-results"></div>
         <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close"><img class="search-icon" src="<?php echo esc_url($this->pluginUrl . 'assets/img/circle-close.svg'); ?>" alt="Search" /></span><div class="bpi-modal-body"></div></div></div>
         <?php
