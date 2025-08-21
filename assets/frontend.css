@@ -404,3 +404,6 @@
 .bpi-sort-icon{
   width: 12px;                 /* állítsd a méretet */
 }
+#bpi-sort-alpha.desc .bpi-sort-icon{
+  transform: rotate(180deg);
+}

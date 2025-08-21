@@ -10,6 +10,7 @@ jQuery(document).ready(function($){
 
   let selectedCat = 0;
   let selectedSub = 0;
+  let sortAsc = true;
 
   const $dropdown = $('.bpi-category-dropdown');
   const $list = $('.bpi-category-list');
@@ -231,11 +232,13 @@ function bindSort(){
       $cards.sort(function(a, b){
         const textA = $(a).find('h3').text().toLowerCase();
         const textB = $(b).find('h3').text().toLowerCase();
-        return textA.localeCompare(textB);
+        return sortAsc ? textA.localeCompare(textB) : textB.localeCompare(textA);
       });
       $.each($cards, function(_, card){
         $grid.append(card);
       });
+      sortAsc = !sortAsc;
+      $('#bpi-sort-alpha').toggleClass('desc', !sortAsc);
     });
   }
 
