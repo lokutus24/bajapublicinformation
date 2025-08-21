@@ -3,7 +3,9 @@
 .bpi-search-form input[type="text"],
 .bpi-search-form select{flex:1 1 200px;padding:0.5rem;border:1px solid #ccc;border-radius:4px;}
 .bpi-search-form button{padding:0.5rem 1rem;border:none;background:#8b5e3c;color:#fff;border-radius:4px;cursor:pointer;}
-.bpi-main-category h2{margin-bottom:0.5rem;}
+.bpi-main-category h2{
+	margin-bottom:0.5rem;
+}
 .bpi-subcategory-scroll{display:flex;overflow-x:auto;gap:1rem;padding-bottom:1rem;}
 .bpi-subcategory-scroll::-webkit-scrollbar{height:6px;}
 .bpi-subcategory-scroll::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px;}
@@ -89,7 +91,7 @@
 }
 .bpi-search-icon{
 	position:absolute;
-	right:1rem;
+	right: 1.5rem;
 	top:50%;
 	transform:translateY(-50%);
 	pointer-events:none;
@@ -292,6 +294,9 @@
 	margin-bottom:2rem;
 	width: 100%;
 }
+.bpi-category-block h2{
+	color: #613A24;
+}
 .bpi-subcategories-grid{
     display: flex;
     flex-wrap: wrap;
@@ -317,6 +322,12 @@
 }
 .bpi-subcard:hover h4 {
   color: #5C7481; /* csak akkor változik, ha a kártya van hover alatt */
+}
+.bpi-subcard:hover .bpi-subcard-arrow {
+  	position: absolute;
+    bottom: -0.5rem;
+    right: -0.3rem;
+    width: 30px;
 }
 .bpi-subcard-arrow{
 	position:absolute;
