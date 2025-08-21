@@ -35,6 +35,7 @@ jQuery(document).ready(function($){
       bindStreetFilter();
       bindPhoneToggle();
       bindImageModal();
+      bindSort();
     });
   }
 
@@ -223,6 +224,21 @@ function bindStreetFilter(){
     });
   }
 
+function bindSort(){
+    $('#bpi-sort-alpha').off('click').on('click', function(){
+      const $grid = $('.bpi-results-grid');
+      const $cards = $grid.children('.bpi-result-card').get();
+      $cards.sort(function(a, b){
+        const textA = $(a).find('h3').text().toLowerCase();
+        const textB = $(b).find('h3').text().toLowerCase();
+        return textA.localeCompare(textB);
+      });
+      $.each($cards, function(_, card){
+        $grid.append(card);
+      });
+    });
+  }
+
   // Live search
   $('#bpi-live-search').on('input', performSearch);
 
@@ -237,4 +253,5 @@ function bindStreetFilter(){
   bindModal();
   bindPhoneToggle();
   bindImageModal();
+  bindSort();
 });
