@@ -19,12 +19,13 @@
 }
 #bpi-live-results{margin-top:1rem;}
 .bpi-result-card{
-        background:#fff;
-        border-radius:8px;
-        padding:1rem;
-        box-shadow:0 1px 3px rgba(0,0,0,0.1);
-        width: 456px;
-        min-height: 168px;
+	background: #fff;
+    border-radius: 15px;
+    padding: 1rem;
+    width: 456px;
+    min-height: 168px;
+    border: 1px solid #E7E1DE;
+}
 }
 .bpi-result-card h3{
 	margin-top:0;
@@ -48,7 +49,13 @@
 .bpi-open-modal img{width:16px;height:16px;cursor:pointer;}
 .bpi-card-image{position:relative;margin-bottom:0.5rem;}
 .bpi-card-image img{width:100%;height:auto;border-radius:4px;}
+#card-featured-image{
+	background:none;
+}
 .bpi-open-image{position:absolute;top:0.5rem;left:0.5rem;cursor:pointer;background:rgba(255,255,255,0.8);border-radius:4px;padding:2px;}
+.bpi-featured-image{
+	position:absolute;top:0.5rem;left:0.5rem;cursor:pointer;border-radius:4px;padding:2px;
+}
 .bpi-open-image img{width:16px;height:16px;}
 .bpi-image-wrapper img{max-width:100%;height:auto;}
 .bpi-field{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;color:#613A24;}
@@ -56,7 +63,16 @@
 .bpi-phone-toggle img{width:16px;height:16px;cursor:pointer;}
 .bpi-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:999;}
 .bpi-modal.open{display:flex;}
-.bpi-modal-content{background:#fff;padding:1.5rem;border-radius:8px;max-width:500px;width:90%;max-height:80%;overflow:auto;position:relative;}
+.bpi-modal-content{
+	background:#fff;
+	padding:1.5rem;
+	border-radius:8px;
+	max-width:500px;
+	width:90%;
+	max-height:80%;
+	overflow:auto;
+	position:relative;
+}
 .bpi-close{
 	position: absolute;
     top: -0.5rem;
