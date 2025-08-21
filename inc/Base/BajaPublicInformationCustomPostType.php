@@ -316,11 +316,14 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 echo '<div class="bpi-subcategory">' . esc_html($sub_name->name) . '</div>';
             }
             echo '<div class="bpi-results-count">' . sprintf(__('%d találat', 'bpi'), $query->found_posts) . '</div>';
-            echo '<p class="bpi-question">' . __('Melyik a körzeti háziorvosom?', 'bpi') . '</p>';
-            echo '<div class="bpi-street-input-wrapper">'; // wrapper
-            echo '  <input type="text" id="bpi-street-search" placeholder="' . esc_attr__('Írja be az utca nevét..', 'bpi') . '" />';
-            echo '  <img class="bpi-street-search-icon" src="' . esc_url( $this->pluginUrl . 'assets/img/street-search-icon.svg' ) . '" alt="Search" />';
-            echo '</div>';
+            if ($cat_name && $cat_name->name == 'Egészségügy') {
+                echo '<p class="bpi-question">' . __('Melyik a körzeti háziorvosom?', 'bpi') . '</p>';
+                echo '<div class="bpi-street-input-wrapper">'; // wrapper
+                echo '  <input type="text" id="bpi-street-search" placeholder="' . esc_attr__('Írja be az utca nevét..', 'bpi') . '" />';
+                echo '  <img class="bpi-street-search-icon" src="' . esc_url( $this->pluginUrl . 'assets/img/street-search-icon.svg' ) . '" alt="Search" />';
+                echo '</div>';
+            }
+
             echo '<div class="bpi-results-grid">';
             while ($query->have_posts()) {
                 $query->the_post();
@@ -387,12 +390,7 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 if ($email) {
                     echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
                 }
-                
-                if ($address) {
-                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
-                    echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
-                }
-                
+
                 if (!empty($extra) && is_array($extra)) {
                     echo '<ul>';
                     foreach ($extra as $row) {
@@ -402,6 +400,11 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                         echo '<li>' . esc_html($row['label']) . ': ' . esc_html($row['value']) . '</li>';
                     }
                     echo '</ul>';
+                }
+
+                if ($address) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
+                    echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
                 }
                 echo '</div>';
                 echo '</div>';
