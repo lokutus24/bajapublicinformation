@@ -20,8 +20,10 @@ jQuery(document).ready(function($){
     const term = $('#bpi-live-search').val();
     if(term.length < 3 && selectedCat === 0 && selectedSub === 0){
       $('#bpi-live-results').empty();
+      $('#bpi-category-cards').show();
       return;
     }
+    $('#bpi-category-cards').hide();
     $.post(bpiAjax.ajax_url, {
       action: 'bpi_live_search',
       keyword: term,
