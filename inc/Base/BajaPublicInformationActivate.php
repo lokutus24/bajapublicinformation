@@ -12,7 +12,7 @@ class BajaPublicInformationActivate
         public static function BajaPublicInformationactivate(){
 
                 // Ensure custom post types and taxonomies are registered for rewrite rules
-                $cpt = new BpiCustomPostType();
+                $cpt = new BajaPublicInformationCustomPostType();
                 $cpt->register();
 
                 flush_rewrite_rules();

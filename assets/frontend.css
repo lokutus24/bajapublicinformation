@@ -391,3 +391,7 @@
   	overflow-wrap: anywhere; /* modern böngészők */
   	white-space: normal; 
 }
+#bpi-sort-alpha {
+  display: block;       /* hogy kitöltse a sort */
+  text-align: right;    /* a szöveget jobbra húzza */
+}
