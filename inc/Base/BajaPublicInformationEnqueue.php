@@ -50,6 +50,16 @@ class BajaPublicInformationEnqueue extends BajaPublicInformationBaseController
                 wp_enqueue_script('bpi-front', $this->pluginUrl.'assets/frontend.js', array('jquery'), null, true);
                 wp_localize_script('bpi-front', 'bpiAjax', array('ajax_url' => admin_url('admin-ajax.php')));
 
+                // Ensure proper scaling on mobile devices
+                add_action('wp_head', array($this, 'addViewportMeta'));
+
+        }
+
+        /**
+         * Output viewport meta tag for responsive layouts
+         */
+        public function addViewportMeta(){
+                echo '<meta name="viewport" content="width=device-width, initial-scale=1" />';
         }
 
 	public function setBajaPublicInformation(){

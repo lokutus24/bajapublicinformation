@@ -434,3 +434,28 @@
 .phonex {
   color: #16376066; /* szürke X */
 }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .bpi-results-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  .bpi-result-card {
+    width: 100%;
+  }
+  .bpi-search-card {
+    padding: 1rem;
+  }
+  .bpi-subcategories-grid {
+    justify-content: center;
+  }
+  .bpi-subcard {
+    width: 100%;
+  }
+  .bpi-modal-content {
+    width: 95%;
+    min-width: 0;
+    padding: 1rem;
+  }
+}
