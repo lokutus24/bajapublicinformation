@@ -185,12 +185,17 @@ jQuery(document).ready(function($){
       e.stopPropagation();
       const full = $(this).data('full');
       $wrapper.html('<img src="'+full+'" alt="" />');
+      if (this.id === 'card-featured-image') {
+        $modal.addClass('full-image');
+      } else {
+        $modal.removeClass('full-image');
+      }
       $modal.addClass('open');
     });
 
     $modal.off('click').on('click', function(e){
       if ($(e.target).closest('.bpi-close').length || e.target === this) {
-        $modal.removeClass('open');
+        $modal.removeClass('open full-image');
         $wrapper.empty();
       }
     });
