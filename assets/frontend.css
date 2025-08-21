@@ -284,22 +284,25 @@
         margin:0.5rem 0;
 }
 .bpi-sort-wrapper{
-        text-align:right;
+  display: flex; 
+  justify-content: right;
+  max-width: 935px;
+  margin: 0 auto;
 }
 .bpi-sort-button{
-        padding:0.5rem 1rem;
-        border:none;
-        background:#8b5e3c;
-        color:#fff;
-        border-radius:4px;
-        cursor:pointer;
-        margin-bottom:1rem;
+    padding:0.5rem 1rem;
+    border:none;
+    background:#613A24;
+    color:#fff;
+    border-radius:50px;
+    cursor:pointer;
+    margin-bottom:1rem;
 }
 .bpi-question{
-        margin-bottom:0.7rem;
-        text-align: center;
-        color: #2037A6;
-        text-decoration: underline;
+    margin-bottom:0.7rem;
+    text-align: center;
+    color: #2037A6;
+    text-decoration: underline;
 }
 
 .bpi-street-input-wrapper{
@@ -397,4 +400,7 @@
 #bpi-sort-alpha {
   display: block;       /* hogy kitöltse a sort */
   text-align: right;    /* a szöveget jobbra húzza */
+}
+.bpi-sort-icon{
+  width: 12px;                 /* állítsd a méretet */
 }
