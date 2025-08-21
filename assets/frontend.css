@@ -280,14 +280,23 @@
   margin-top: 50px;
 }
 .bpi-results-count{
-	text-align:center;
-	margin:0.5rem 0;
+        text-align:center;
+        margin:0.5rem 0;
+}
+.bpi-sort-button{
+        padding:0.5rem 1rem;
+        border:none;
+        background:#8b5e3c;
+        color:#fff;
+        border-radius:4px;
+        cursor:pointer;
+        margin-bottom:1rem;
 }
 .bpi-question{
-	margin-bottom:0.7rem;
-	text-align: center;
-	color: #2037A6;
-	text-decoration: underline;
+        margin-bottom:0.7rem;
+        text-align: center;
+        color: #2037A6;
+        text-decoration: underline;
 }
 
 .bpi-street-input-wrapper{

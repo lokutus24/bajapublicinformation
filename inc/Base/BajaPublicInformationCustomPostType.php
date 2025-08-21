@@ -324,6 +324,8 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 echo '</div>';
             }
 
+            echo '</div>'; // .bpi-results-info
+            echo '<button id="bpi-sort-alpha" class="bpi-sort-button">' . __('Rendezés ABC szerint', 'bpi') . '</button>';
             echo '<div class="bpi-results-grid">';
             while ($query->have_posts()) {
                 $query->the_post();
