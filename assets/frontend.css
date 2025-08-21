@@ -283,6 +283,9 @@
         text-align:center;
         margin:0.5rem 0;
 }
+.bpi-sort-wrapper{
+        text-align:right;
+}
 .bpi-sort-button{
         padding:0.5rem 1rem;
         border:none;
