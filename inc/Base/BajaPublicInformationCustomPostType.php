@@ -269,6 +269,7 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         </div>
         <div id="bpi-live-results"></div>
         <div id="bpi-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close"><img class="search-icon" src="<?php echo esc_url($this->pluginUrl . 'assets/img/circle-close.svg'); ?>" alt="Search" /></span><div class="bpi-modal-body"></div></div></div>
+        <div id="bpi-image-modal" class="bpi-modal"><div class="bpi-modal-content"><span class="bpi-close"><img class="search-icon" src="<?php echo esc_url($this->pluginUrl . 'assets/img/circle-close.svg'); ?>" alt="Close" /></span><div class="bpi-image-wrapper"></div></div></div>
         <?php
         return ob_get_clean();
     }
@@ -339,6 +340,15 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 }
                 echo '<div class="bpi-open-modal"><img src="' . esc_url($this->pluginUrl . 'assets/img/zoom-in.svg') . '" alt="' . esc_attr__('Részletek', 'bpi') . '"></div>';
                 echo '</div>';
+                if (has_post_thumbnail()) {
+                    $thumb_id  = get_post_thumbnail_id();
+                    $thumb_url = wp_get_attachment_image_url($thumb_id, 'medium');
+                    $full_url  = wp_get_attachment_image_url($thumb_id, 'full');
+                    echo '<div class="bpi-card-image">';
+                    echo '<img src="' . esc_url($thumb_url) . '" alt="">';
+                    echo '<span class="bpi-open-image" data-full="' . esc_url($full_url) . '"><img src="' . esc_url($this->pluginUrl . 'assets/img/zoom-in.svg') . '" alt="' . esc_attr__('Kép nagyítása', 'bpi') . '"></span>';
+                    echo '</div>';
+                }
                 echo '<h3>' . get_the_title() . '</h3>';
                 if ($streets) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Körzet utcái: ', 'bpi') . esc_html($streets) . '</span></div>';
@@ -354,6 +364,15 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     echo '<div class="bpi-card-category">' . esc_html($category) . '</div>';
                 }
                 echo '<h3>' . get_the_title() . '</h3>';
+                if (has_post_thumbnail()) {
+                    $thumb_id  = get_post_thumbnail_id();
+                    $thumb_url = wp_get_attachment_image_url($thumb_id, 'medium');
+                    $full_url  = wp_get_attachment_image_url($thumb_id, 'full');
+                    echo '<div class="bpi-card-image">';
+                    echo '<img src="' . esc_url($thumb_url) . '" alt="">';
+                    echo '<span class="bpi-open-image" data-full="' . esc_url($full_url) . '"><img src="' . esc_url($this->pluginUrl . 'assets/img/zoom-in.svg') . '" alt="' . esc_attr__('Kép nagyítása', 'bpi') . '"></span>';
+                    echo '</div>';
+                }
 
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';

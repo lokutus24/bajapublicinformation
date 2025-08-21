@@ -19,12 +19,12 @@
 }
 #bpi-live-results{margin-top:1rem;}
 .bpi-result-card{
-	background:#fff;
-	border-radius:8px;
-	padding:1rem;
-	box-shadow:0 1px 3px rgba(0,0,0,0.1);
-	width: 456px;
-	height: 168px;
+        background:#fff;
+        border-radius:8px;
+        padding:1rem;
+        box-shadow:0 1px 3px rgba(0,0,0,0.1);
+        width: 456px;
+        min-height: 168px;
 }
 .bpi-result-card h3{
 	margin-top:0;
@@ -46,6 +46,11 @@
     line-height: 24px;
 }
 .bpi-open-modal img{width:16px;height:16px;cursor:pointer;}
+.bpi-card-image{position:relative;margin-bottom:0.5rem;}
+.bpi-card-image img{width:100%;height:auto;border-radius:4px;}
+.bpi-open-image{position:absolute;top:0.5rem;left:0.5rem;cursor:pointer;background:rgba(255,255,255,0.8);border-radius:4px;padding:2px;}
+.bpi-open-image img{width:16px;height:16px;}
+.bpi-image-wrapper img{max-width:100%;height:auto;}
 .bpi-field{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;color:#613A24;}
 .bpi-field img{width:16px;height:16px;}
 .bpi-phone-toggle img{width:16px;height:16px;cursor:pointer;}
