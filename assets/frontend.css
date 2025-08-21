@@ -7,7 +7,6 @@
 .bpi-subcategory-scroll{display:flex;overflow-x:auto;gap:1rem;padding-bottom:1rem;}
 .bpi-subcategory-scroll::-webkit-scrollbar{height:6px;}
 .bpi-subcategory-scroll::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px;}
-.bpi-subcard{background:#fff;border-radius:8px;padding:0.5rem 1rem;white-space:nowrap;text-decoration:none;color:#333;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
 .bpi-results-grid{
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* pontosan 2 oszlop */
@@ -305,5 +304,42 @@
 	width: 160px;
 	height: 140px;
 	border-radius: 15px;
+	background:#fff;
+	padding:0.5rem 1rem;
+	white-space:nowrap;
+	text-decoration:none;
+	color:#333;
+	border: 1px solid #E7E1DE;
 }
-.bpi-subcard-arrow{position:absolute;bottom:0.5rem;right:0.5rem;width:16px;height:16px;}
+.bpi-subcard:hover{
+	border: 1px solid #99C2D7;
+	box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.15);
+}
+.bpi-subcard:hover .bpi-subcard-arrow {
+  	/*position: absolute;
+    transform: rotate(42deg);
+    bottom: -0.4rem;
+    right: -0.3rem;
+    width: 26px;*/
+    background-image: url("../assets/img/arrow-circle-right.svg");
+}
+.bpi-subcard:hover h4 {
+  color: #5C7481; /* csak akkor változik, ha a kártya van hover alatt */
+}
+.bpi-subcard-arrow{
+	position:absolute;
+	bottom:0.1rem;
+	right:0.1rem;
+	width:20px;
+	height:20px;
+}
+
+.bpi-subcard h4{
+	font-weight: 600;
+	font-size: 19px;
+	line-height: 23px;
+	color: #613A24;
+	word-wrap: break-word;   /* régi */
+  	overflow-wrap: anywhere; /* modern böngészők */
+  	white-space: normal; 
+}

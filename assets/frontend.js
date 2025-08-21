@@ -1,4 +1,13 @@
 jQuery(document).ready(function($){
+
+  $('.bpi-subcard').on('mouseenter', function(){
+    $(this).find('.bpi-subcard-arrow')
+      .attr('src', function(){ return $(this).data('src-hover'); });
+  }).on('mouseleave', function(){
+    $(this).find('.bpi-subcard-arrow')
+      .attr('src', function(){ return $(this).data('src-default'); });
+  });
+
   let selectedCat = 0;
   let selectedSub = 0;
 
