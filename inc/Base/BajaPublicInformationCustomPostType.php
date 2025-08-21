@@ -337,7 +337,13 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 $streets = get_post_meta(get_the_ID(), 'bpi_streets', true);
                 $terms   = get_the_terms(get_the_ID(), 'bpi_category');
                 $category = !empty($terms) && !is_wp_error($terms) ? $terms[0]->name : '';
-                $masked_phone = $this->maskPhone($phone);
+                $masked_phone_html  = $this->maskPhone($phone, true);
+                $masked_phone_plain = $this->maskPhone($phone, false);
+
+                $allowed = [
+                    'span' => [ 'class' => true ],
+                ];
+
                 echo '<div class="bpi-result-card" data-streets="' . esc_attr($streets) . '">';
                 if (has_post_thumbnail()) {
                     $thumb_id  = get_post_thumbnail_id();
@@ -361,8 +367,19 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 }
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
-                    echo '<span class="bpi-phone-number" data-full="' . esc_attr($phone) . '" data-mask="' . esc_attr($masked_phone) . '">' . esc_html($masked_phone) . '</span>';
-                    echo '<span class="bpi-phone-toggle"><img src="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '" alt="' . esc_attr__('Telefonszám megjelenítése', 'bpi') . '"></span>';
+                    echo '<span class="bpi-phone-number" 
+                             data-full="' . esc_attr($phone) . '" 
+                             data-mask-html="' . esc_attr(wp_kses($masked_phone_html, $allowed)) . '" 
+                             data-mask="' . esc_attr($masked_phone_plain) . '">' 
+                          . wp_kses($masked_phone_html, $allowed) . 
+                         '</span>';
+                    echo '<span class="bpi-phone-toggle">
+                            <img class="bpi-eye" 
+                                 src="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '" 
+                                 data-src-closed="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '" 
+                                 data-src-open="' . esc_url($this->pluginUrl . 'assets/img/eye-off.svg') . '" 
+                                 alt="' . esc_attr__('Telefonszám megjelenítése', 'bpi') . '">
+                          </span>';
                     echo '</div>';
                 }
                 echo '<div class="bpi-card-details" style="display:none;">';
@@ -419,20 +436,42 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         wp_die();
     }
 
-    private function maskPhone($phone)
+    private function maskPhone(string $phone, bool $withHtml = false): string
     {
         $masked = '';
         $digits = 0;
-        $length = strlen($phone);
-        for ($i = 0; $i < $length; $i++) {
-            $char = $phone[$i];
-            if (ctype_digit($char)) {
+        $slashInserted = false;
+        $len = strlen($phone);
+
+        for ($i = 0; $i < $len; $i++) {
+            $ch = $phone[$i];
+
+            if (ctype_digit($ch)) {
                 $digits++;
-                $masked .= ($digits > 4) ? 'x' : $char;
+
+                if ($digits == 3 || $digits == 8) {
+                    $masked .= ' ';
+                }
+
+                if ($digits <= 4) {
+                    $masked .= $ch;
+
+                    if ($digits === 4 && !$slashInserted) {
+                        $masked .= $withHtml
+                            ? '<span class="phoneper">/</span>'
+                            : '/';
+                        $slashInserted = true;
+                    }
+                } else {
+                    $masked .= $withHtml
+                        ? '<span class="phonex">X</span>'
+                        : 'X';
+                }
             } else {
-                $masked .= $char;
+                $masked .= $ch;
             }
         }
+
         return $masked;
     }
 }

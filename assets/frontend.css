@@ -32,10 +32,23 @@
 	margin-bottom:0.5rem;
 	color: #613A24;
 }
-.bpi-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+.bpi-card-header{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:0.5rem;
+}
+.bpi-result-card h3	{
+	color: #613A24;
+	font-family: "Poppins", sans-serif;
+  	font-weight: 700;        /* bold */
+  	font-style: normal;      /* nem "Bold", hanem normal */
+  	font-size: 22px;
+  	line-height: 25px;
+  	letter-spacing: 0;
+}
 .bpi-card-category{
-	ont-weight: 500;
-    background: #f0f6ff;
+	font-weight: 500;
     color: #098FDB;
     padding: 0.2rem 0.5rem;
     display: flex;
@@ -62,7 +75,12 @@
 #bpi-image-modal.full-image .bpi-image-wrapper img{max-width:none;max-height:none;width:auto;height:auto;}
 .bpi-field{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;color:#613A24;}
 .bpi-field img{width:16px;height:16px;}
-.bpi-phone-toggle img{width:16px;height:16px;cursor:pointer;}
+.bpi-phone-toggle img{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	margin-top: 0.4rem;
+}
 .bpi-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:999;}
 .bpi-modal.open{display:flex;}
 .bpi-modal-content{
@@ -406,4 +424,13 @@
 }
 #bpi-sort-alpha.desc .bpi-sort-icon{
   transform: rotate(180deg);
+}
+.phoneper {
+  padding: 0 .15em;
+  color: #613A24; /* barna a per jel */
+  font-weight: 400;
+}
+
+.phonex {
+  color: #16376066; /* szürke X */
 }

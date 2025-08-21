@@ -203,15 +203,29 @@ jQuery(document).ready(function($){
     });
   }
 
-  function bindPhoneToggle(){
-    $('.bpi-phone-toggle').off('click').on('click', function(e){
-      e.stopPropagation();
-      const $num = $(this).siblings('.bpi-phone-number');
-      const mask = $num.data('mask');
-      const full = $num.data('full');
-      $num.text($num.text() === mask ? full : mask);
-    });
-  }
+ function bindPhoneToggle(){
+  $('.bpi-phone-toggle').off('click').on('click', function(e){
+    e.stopPropagation();
+    const $num = $(this).siblings('.bpi-phone-number');
+    const maskHtml = $num.data('mask-html'); // HTML-es maszkolt verzió
+    const full = $num.data('full');          // teljes szám
+    const $eye = $(this).find('.bpi-eye');   // csak a saját ikon
+
+    const isMasked = ($num.html() === maskHtml);
+
+    if (isMasked) {
+      // Mutassuk a teljes számot
+      $num.text(full);
+      $eye.attr('src', $eye.data('src-open'))
+          .attr('alt', 'Telefonszám elrejtése');
+    } else {
+      // Állítsuk vissza a maszkolt HTML-t
+      $num.html(maskHtml);
+      $eye.attr('src', $eye.data('src-closed'))
+          .attr('alt', 'Telefonszám megjelenítése');
+    }
+  });
+}
 
 function bindStreetFilter(){
     $('#bpi-street-search').on('input', function(){
