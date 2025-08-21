@@ -254,7 +254,13 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                         <?php foreach ($subs as $sub) : ?>
                             <div class="bpi-subcard" data-parent="<?php echo esc_attr($term->term_id); ?>" data-id="<?php echo esc_attr($sub->term_id); ?>">
                                 <h4><?php echo esc_html($sub->name); ?></h4>
-                                <img class="bpi-subcard-arrow" src="<?php echo esc_url($this->pluginUrl . 'assets/img/arrow-circle-up-right.svg'); ?>" />
+                                <img
+                                    class="bpi-subcard-arrow"
+                                    src="<?php echo esc_url($this->pluginUrl . 'assets/img/arrow-circle-up-right.svg'); ?>"
+                                    data-src-default="<?php echo esc_url($this->pluginUrl . 'assets/img/arrow-circle-up-right.svg'); ?>"
+                                    data-src-hover="<?php echo esc_url($this->pluginUrl . 'assets/img/arrow-circle-right.svg'); ?>"
+                                    alt=""
+                                />
                             </div>
                         <?php endforeach; ?>
                     </div>

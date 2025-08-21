@@ -315,14 +315,6 @@
 	border: 1px solid #99C2D7;
 	box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.15);
 }
-.bpi-subcard:hover .bpi-subcard-arrow {
-  	/*position: absolute;
-    transform: rotate(42deg);
-    bottom: -0.4rem;
-    right: -0.3rem;
-    width: 26px;*/
-    background-image: url("../assets/img/arrow-circle-right.svg");
-}
 .bpi-subcard:hover h4 {
   color: #5C7481; /* csak akkor változik, ha a kártya van hover alatt */
 }
