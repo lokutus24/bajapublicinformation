@@ -375,6 +375,10 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
                 $extra   = get_post_meta(get_the_ID(), 'bpi_extra', true);
                 $streets = get_post_meta(get_the_ID(), 'bpi_streets', true);
+                $html_blocks = get_post_meta(get_the_ID(), 'bpi_html_blocks', true);
+                if (!is_array($html_blocks)) {
+                    $html_blocks = [];
+                }
                 $terms   = get_the_terms(get_the_ID(), 'bpi_category');
                 $category = !empty($terms) && !is_wp_error($terms) ? $terms[0]->name : '';
                 $masked_phone_html  = $this->maskPhone($phone, true);
@@ -402,6 +406,16 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 echo '<div class="bpi-open-modal"><img src="' . esc_url($this->pluginUrl . 'assets/img/zoom-in.svg') . '" alt="' . esc_attr__('Részletek', 'bpi') . '"></div>';
                 echo '</div>';
                 echo '<h3>' . get_the_title() . '</h3>';
+                if (!empty($html_blocks[0]['name']) || !empty($html_blocks[0]['content'])) {
+                    echo '<div class="bpi-html-block bpi-html-block-card">';
+                    if (!empty($html_blocks[0]['name'])) {
+                        echo '<h4>' . esc_html($html_blocks[0]['name']) . '</h4>';
+                    }
+                    if (!empty($html_blocks[0]['content'])) {
+                        echo wp_kses_post($html_blocks[0]['content']);
+                    }
+                    echo '</div>';
+                }
                 if ($streets) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Körzet utcái: ', 'bpi') . esc_html($streets) . '</span></div>';
                 }
@@ -457,6 +471,16 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 }
                 if ($email) {
                     echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
+                }
+                if (!empty($html_blocks[1]['name']) || !empty($html_blocks[1]['content'])) {
+                    echo '<div class="bpi-html-block bpi-html-block-modal">';
+                    if (!empty($html_blocks[1]['name'])) {
+                        echo '<h4>' . esc_html($html_blocks[1]['name']) . '</h4>';
+                    }
+                    if (!empty($html_blocks[1]['content'])) {
+                        echo wp_kses_post($html_blocks[1]['content']);
+                    }
+                    echo '</div>';
                 }
 
                 if (!empty($extra) && is_array($extra)) {
