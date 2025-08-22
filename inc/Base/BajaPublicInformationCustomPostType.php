@@ -436,8 +436,16 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                           </span>';
                     echo '</div>';
                 }
+
                 if ($email) {
-                    echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/email.svg') . '" alt="email">';
+                    echo '<a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a>';
+                    echo '</div>';
+                }
+                if ($website) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/globe.svg') . '" alt="email">';
+                    echo '<a href="' . esc_url($website) . '" target="_blank">' . esc_html($website) . '</a>';
+                    echo '</div>';
                 }
                 if (!empty($html_blocks[1]['name']) || !empty($html_blocks[1]['content'])) {
                     echo '<div class="bpi-html-block bpi-html-block-modal">';
@@ -492,11 +500,16 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                         . '</span>';
                     echo '</div>';
                 }
-                if ($website) {
-                    echo '<p><a href="' . esc_url($website) . '" target="_blank">' . esc_html($website) . '</a></p>';
-                }
+
                 if ($email) {
-                    echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/email.svg') . '" alt="email">';
+                    echo '<a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a>';
+                    echo '</div>';
+                }
+                if ($website) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/globe.svg') . '" alt="email">';
+                    echo '<a href="' . esc_url($website) . '" target="_blank">' . esc_html($website) . '</a>';
+                    echo '</div>';
                 }
                 if (!empty($html_blocks[1]['name']) || !empty($html_blocks[1]['content'])) {
                     echo '<div class="bpi-html-block bpi-html-block-modal">';
