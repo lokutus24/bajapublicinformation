@@ -604,21 +604,21 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     echo '</div>';
                 }
 
-                if (!empty($extra) && is_array($extra)) {
-                    echo '<ul>';
-                    foreach ($extra as $row) {
-                        if (empty($row['label']) && empty($row['value'])) {
-                            continue;
-                        }
-                        echo '<li>' . esc_html($row['label']) . ': ' . esc_html($row['value']) . '</li>';
-                    }
-                    echo '</ul>';
-                }
-
                 if ($address) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
+
+                    if (!empty($extra) && is_array($extra)) {
+
+                        foreach ($extra as $row) {
+                            if (empty($row['label']) && empty($row['value'])) {
+                                continue;
+                            }
+                            echo '<div class="bpi-field">' . esc_html($row['label']) . ': ' . esc_html($row['value']) . '</div>';
+                        }
+                    }
                     echo '<iframe width="100%" height="200" src="https://www.google.com/maps?q=' . urlencode($address) . '&output=embed"></iframe>';
                 }
+
                 echo '</div>';
                 echo '</div>';
             }
