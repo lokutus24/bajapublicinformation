@@ -459,3 +459,60 @@
     padding: 1rem;
   }
 }
+
+.bpi-opening-hours h4{
+	color: #E1A850;
+	text-transform: uppercase;
+	font-size: 16px;
+	margin-top: 20px;
+	font-weight: 700;
+}
+
+.bpi-opening-table {
+  width: 50%;
+  border-collapse: collapse;
+}
+
+.bpi-opening-table td:first-child {
+  padding: 0.5rem;
+  border: none;
+  color: #613A24;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.bpi-opening-table td:last-child {
+  padding: 0.5rem;
+  border: none;
+  color: #613A24;
+  font-size: 16px;
+}
+
+.bpi-opening-table td:nth-child(2) {
+  border-left: 1px solid #E7E1DE;
+}
+
+.bpi-opening-table tr {
+  background-color: #fff !important;
+}
+
+.bpi-opening-table tbody > tr:nth-child(odd) > td,
+.bpi-opening-table tbody > tr:nth-child(odd) > th {
+    background-color: #fff !important;
+}
+
+.bpi-opening-table tbody > tr:nth-child(even) > td,
+.bpi-opening-table tbody > tr:nth-child(even) > th {
+    background-color: white !important;
+}
+
+/* hover alatt is maradjanak ugyanezek */
+.bpi-opening-table tbody > tr:nth-child(odd):hover > td,
+.bpi-opening-table tbody > tr:nth-child(odd):hover > th {
+    background-color: #fff !important;
+}
+
+.bpi-opening-table tbody > tr:nth-child(even):hover > td,
+.bpi-opening-table tbody > tr:nth-child(even):hover > th {
+    background-color: white !important;
+}

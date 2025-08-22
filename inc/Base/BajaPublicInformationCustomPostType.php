@@ -582,8 +582,8 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     foreach ($days as $key => $label) {
                         $from = isset($opening_hours[$key]['from']) ? $opening_hours[$key]['from'] : '';
                         $to   = isset($opening_hours[$key]['to']) ? $opening_hours[$key]['to'] : '';
-                        $time = ($from || $to) ? $from . ' - ' . $to : '';
-                        echo '<tr><td>' . esc_html($label) . '</td><td style="border-left:1px solid #ccc;padding-left:0.5rem;">' . esc_html($time) . '</td></tr>';
+                        $time = ($from || $to) ? $from . ' - ' . $to : '-';
+                        echo '<tr><td>' . esc_html($label) . '</td><td>' . esc_html($time) . '</td></tr>';
                     }
                     echo '</table>';
                     echo '</div>';
