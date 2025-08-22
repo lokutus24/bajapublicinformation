@@ -436,6 +436,19 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                           </span>';
                     echo '</div>';
                 }
+                if ($email) {
+                    echo '<p><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></p>';
+                }
+                if (!empty($html_blocks[1]['name']) || !empty($html_blocks[1]['content'])) {
+                    echo '<div class="bpi-html-block bpi-html-block-modal">';
+                    if (!empty($html_blocks[1]['name'])) {
+                        echo '<h4>' . esc_html($html_blocks[1]['name']) . '</h4>';
+                    }
+                    if (!empty($html_blocks[1]['content'])) {
+                        echo wp_kses_post($html_blocks[1]['content']);
+                    }
+                    echo '</div>';
+                }
                 echo '<div class="bpi-card-details" style="display:none;">';
                 if ($category) {
                     echo '<div class="bpi-card-category">' . esc_html($category) . '</div>';
@@ -451,6 +464,19 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     echo '</div>';
                 }
 
+                if (!empty($html_blocks[0]['name']) || !empty($html_blocks[0]['content'])) {
+                    echo '<div class="bpi-html-block bpi-html-block-card">';
+                    if (!empty($html_blocks[0]['name'])) {
+                        echo '<h4>' . esc_html($html_blocks[0]['name']) . '</h4>';
+                    }
+                    if (!empty($html_blocks[0]['content'])) {
+                        echo wp_kses_post($html_blocks[0]['content']);
+                    }
+                    echo '</div>';
+                }
+                if ($streets) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Körzet utcái: ', 'bpi') . esc_html($streets) . '</span></div>';
+                }
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
                     echo '<span class="bpi-phone-number"'
