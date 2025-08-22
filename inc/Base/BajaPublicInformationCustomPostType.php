@@ -399,8 +399,17 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
 
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
-                    echo '<span class="bpi-phone-number" data-full="' . esc_attr($phone) . '" data-mask="' . esc_attr($masked_phone) . '">' . esc_html($masked_phone) . '</span>';
-                    echo '<span class="bpi-phone-toggle"><img src="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '" alt="' . esc_attr__('Telefonszám megjelenítése', 'bpi') . '"></span>';
+                    echo '<span class="bpi-phone-number"'
+                        . ' data-full="' . esc_attr($phone) . '"'
+                        . ' data-mask-html="' . esc_attr(wp_kses($masked_phone_html, $allowed)) . '"'
+                        . ' data-mask="' . esc_attr($masked_phone_plain) . '">' . wp_kses($masked_phone_html, $allowed) . '</span>';
+                    echo '<span class="bpi-phone-toggle">'
+                        . '<img class="bpi-eye"'
+                        . ' src="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '"'
+                        . ' data-src-closed="' . esc_url($this->pluginUrl . 'assets/img/eye.svg') . '"'
+                        . ' data-src-open="' . esc_url($this->pluginUrl . 'assets/img/eye-off.svg') . '"'
+                        . ' alt="' . esc_attr__('Telefonszám megjelenítése', 'bpi') . '">'
+                        . '</span>';
                     echo '</div>';
                 }
                 if ($website) {
