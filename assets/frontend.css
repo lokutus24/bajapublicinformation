@@ -19,13 +19,13 @@
 }
 #bpi-live-results{margin-top:1rem;}
 .bpi-result-card{
-	background: #fff;
+        position: relative;
+    background: #fff;
     border-radius: 15px;
     padding: 1rem;
     width: 456px;
     min-height: 168px;
     border: 1px solid #E7E1DE;
-}
 }
 .bpi-result-card h3{
 	margin-top:0;
@@ -60,8 +60,13 @@
     line-height: 24px;
 }
 .bpi-open-modal img{
-	width: 28px;
+        width: 28px;
     cursor: pointer;
+}
+.bpi-open-modal{
+        position:absolute;
+    top:0.5rem;
+    right:0.5rem;
 }
 .bpi-card-image{position:relative;margin-bottom:0.5rem;}
 .bpi-card-image img{width:100%;height:auto;border-radius:4px;}
