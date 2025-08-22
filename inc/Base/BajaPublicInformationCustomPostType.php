@@ -105,6 +105,19 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         if (!is_array($extra)) {
             $extra = [];
         }
+
+        $html_blocks = get_post_meta($post->ID, 'bpi_html_blocks', true);
+        if (!is_array($html_blocks)) {
+            $html_blocks = [];
+        }
+        for ($i = 0; $i < 2; $i++) {
+            if (!isset($html_blocks[$i])) {
+                $html_blocks[$i] = [
+                    'name' => '',
+                    'content' => '',
+                ];
+            }
+        }
         wp_nonce_field('bpi_details_nonce', 'bpi_details_nonce');
         ?>
         <p>
@@ -127,6 +140,23 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             <label for="bpi_streets"><?php _e('Körzet utcái (soronként egy)', 'bpi'); ?></label>
             <textarea id="bpi_streets" name="bpi_streets" rows="4" class="widefat"><?php echo esc_textarea($streets); ?></textarea>
         </p>
+        <p><?php _e('HTML szekciók', 'bpi'); ?></p>
+        <?php foreach ($html_blocks as $index => $block) : ?>
+            <p>
+                <label for="bpi_html_blocks_<?php echo $index; ?>_name"><?php printf(__('Szekció %d neve', 'bpi'), $index + 1); ?></label>
+                <input type="text" id="bpi_html_blocks_<?php echo $index; ?>_name" name="bpi_html_blocks[<?php echo $index; ?>][name]" class="widefat" value="<?php echo esc_attr($block['name']); ?>">
+            </p>
+            <?php
+                wp_editor(
+                    $block['content'],
+                    'bpi_html_blocks_' . $index . '_content',
+                    [
+                        'textarea_name' => 'bpi_html_blocks[' . $index . '][content]',
+                        'textarea_rows' => 5,
+                    ]
+                );
+            ?>
+        <?php endforeach; ?>
         <p><?php _e('További mezők', 'bpi'); ?></p>
         <table id="bpi-extra-table" class="widefat">
             <tbody>
@@ -176,6 +206,16 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         update_post_meta($post_id, 'bpi_website', isset($_POST['bpi_website']) ? esc_url_raw($_POST['bpi_website']) : '');
         update_post_meta($post_id, 'bpi_email', isset($_POST['bpi_email']) ? sanitize_email($_POST['bpi_email']) : '');
         update_post_meta($post_id, 'bpi_streets', isset($_POST['bpi_streets']) ? sanitize_textarea_field($_POST['bpi_streets']) : '');
+        $html_blocks = [];
+        if (!empty($_POST['bpi_html_blocks']) && is_array($_POST['bpi_html_blocks'])) {
+            foreach ($_POST['bpi_html_blocks'] as $block) {
+                $html_blocks[] = [
+                    'name'    => isset($block['name']) ? sanitize_text_field($block['name']) : '',
+                    'content' => isset($block['content']) ? wp_kses_post($block['content']) : '',
+                ];
+            }
+        }
+        update_post_meta($post_id, 'bpi_html_blocks', $html_blocks);
 
         $extra = [];
         if (!empty($_POST['bpi_extra']) && is_array($_POST['bpi_extra'])) {
