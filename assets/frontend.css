@@ -87,6 +87,9 @@
 #bpi-image-modal.full-image .bpi-image-wrapper img{max-width:none;max-height:none;width:auto;height:auto;}
 .bpi-field{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;color:#613A24;}
 .bpi-field img{width:16px;height:16px;}
+.bpi-field a {
+	color: #613A24;
+}
 .bpi-phone-toggle img{
 	width:16px;
 	height:16px;
