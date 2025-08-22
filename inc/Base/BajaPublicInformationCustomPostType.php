@@ -462,8 +462,8 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     }
                     echo '</div>';
                 }
-                if ($streets) {
-                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Körzet utcái: ', 'bpi') . esc_html($streets) . '</span></div>';
+                if ($address) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
                 }
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
