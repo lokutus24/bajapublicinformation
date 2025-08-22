@@ -1,16 +1,2 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="#E1A850"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <circle cx="11" cy="11" r="8" />
-  <line x1="21" x2="16.65" y1="21" y2="16.65" />
-  <line x1="11" x2="11" y1="8" y2="14" />
-  <line x1="8" x2="14" y1="11" y2="11" />
-</svg>
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="zoomInIconTitle" stroke="#E1A850" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#000000"> <title id="zoomInIconTitle">Zoom In</title> <path d="M4,20 L9.58788778,14.4121122"/> <path d="M14,16 C10.6862915,16 8,13.3137085 8,10 C8,6.6862915 10.6862915,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,13.3137085 17.3137085,16 14,16 Z"/> <path d="M16.6666667 10L11.3333333 10M14 7.33333333L14 12.6666667"/> </svg>

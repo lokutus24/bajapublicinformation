@@ -59,7 +59,10 @@
     font-size: 12px;
     line-height: 24px;
 }
-.bpi-open-modal img{width:16px;height:16px;cursor:pointer;}
+.bpi-open-modal img{
+	width: 28px;
+    cursor: pointer;
+}
 .bpi-card-image{position:relative;margin-bottom:0.5rem;}
 .bpi-card-image img{width:100%;height:auto;border-radius:4px;}
 #card-featured-image{
@@ -460,6 +463,16 @@
     width: 95%;
     min-width: 0;
     padding: 1rem;
+  }
+
+  .bpi-cat-item > .bpi-sub-list {
+    top: 40px;
+    left: 0;
+    right: auto;
+  }
+
+  .bpi-sort-text {
+    display: none;
   }
 }
 

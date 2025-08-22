@@ -1,4 +1,8 @@
 jQuery(document).ready(function($){
+  
+  if ($(window).width() < 768) {
+    $('#bpi-live-search').attr('placeholder', 'Keresés');
+  }  
 
   $('.bpi-subcard').on('mouseenter', function(){
     $(this).find('.bpi-subcard-arrow')
