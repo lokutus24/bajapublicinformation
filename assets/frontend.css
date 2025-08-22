@@ -122,7 +122,15 @@
     margin-bottom:0.5rem;
     display:inline-flex;
 }
-
+.bpi-modal-body h3{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;       /* Bold helyett */
+  font-style: normal;     /* "Bold" nem létezik font-style értékként */
+  font-size: 22px;
+  line-height: 25px;
+  letter-spacing: 0; 
+  color: #613A24;
+}
 .bpi-search-card{
 	max-width: 869px;
 	margin:0 auto;
