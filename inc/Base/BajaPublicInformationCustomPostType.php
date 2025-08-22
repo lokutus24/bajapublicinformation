@@ -468,7 +468,7 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                     echo '</div>';
                 }
                 if ($address) {
-                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . esc_html($address) . '</span></div>';
                 }
                 if ($phone) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/phone.svg') . '" alt="">';
@@ -532,6 +532,10 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                         echo wp_kses_post($html_blocks[0]['content']);
                     }
                     echo '</div>';
+                }
+                
+                if ($address) {
+                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>'.esc_html($address) . '</span></div>';
                 }
                 if ($streets) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Körzet utcái: ', 'bpi') . esc_html($streets) . '</span></div>';
@@ -605,8 +609,6 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 }
 
                 if ($address) {
-                    echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/map-pin.svg') . '" alt=""><span>' . __('Cím', 'bpi') . ': ' . esc_html($address) . '</span></div>';
-
                     if (!empty($extra) && is_array($extra)) {
 
                         foreach ($extra as $row) {
