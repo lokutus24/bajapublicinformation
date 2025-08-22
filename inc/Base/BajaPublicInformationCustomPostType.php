@@ -101,6 +101,10 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         $website = get_post_meta($post->ID, 'bpi_website', true);
         $email   = get_post_meta($post->ID, 'bpi_email', true);
         $streets = get_post_meta($post->ID, 'bpi_streets', true);
+        $opening_hours = get_post_meta($post->ID, 'bpi_opening_hours', true);
+        if (!is_array($opening_hours)) {
+            $opening_hours = [];
+        }
         $extra   = get_post_meta($post->ID, 'bpi_extra', true);
         if (!is_array($extra)) {
             $extra = [];
@@ -119,6 +123,15 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             }
         }
         wp_nonce_field('bpi_details_nonce', 'bpi_details_nonce');
+        $days = [
+            'monday'    => __('Hétfő', 'bpi'),
+            'tuesday'   => __('Kedd', 'bpi'),
+            'wednesday' => __('Szerda', 'bpi'),
+            'thursday'  => __('Csütörtök', 'bpi'),
+            'friday'    => __('Péntek', 'bpi'),
+            'saturday'  => __('Szombat', 'bpi'),
+            'sunday'    => __('Vasárnap', 'bpi'),
+        ];
         ?>
         <p>
             <label for="bpi_address"><?php _e('Cím', 'bpi'); ?></label>
@@ -140,6 +153,23 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
             <label for="bpi_streets"><?php _e('Körzet utcái (soronként egy)', 'bpi'); ?></label>
             <textarea id="bpi_streets" name="bpi_streets" rows="4" class="widefat"><?php echo esc_textarea($streets); ?></textarea>
         </p>
+        <p><?php _e('Nyitvatartás', 'bpi'); ?></p>
+        <table class="widefat">
+            <tbody>
+            <?php foreach ($days as $key => $label) :
+                $from = isset($opening_hours[$key]['from']) ? $opening_hours[$key]['from'] : '';
+                $to   = isset($opening_hours[$key]['to']) ? $opening_hours[$key]['to'] : '';
+            ?>
+                <tr>
+                    <td><?php echo esc_html($label); ?></td>
+                    <td>
+                        <input type="time" name="bpi_opening_hours[<?php echo esc_attr($key); ?>][from]" value="<?php echo esc_attr($from); ?>" /> -
+                        <input type="time" name="bpi_opening_hours[<?php echo esc_attr($key); ?>][to]" value="<?php echo esc_attr($to); ?>" />
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
         <p><?php _e('HTML szekciók', 'bpi'); ?></p>
         <?php foreach ($html_blocks as $index => $block) : ?>
             <p>
@@ -206,6 +236,21 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
         update_post_meta($post_id, 'bpi_website', isset($_POST['bpi_website']) ? esc_url_raw($_POST['bpi_website']) : '');
         update_post_meta($post_id, 'bpi_email', isset($_POST['bpi_email']) ? sanitize_email($_POST['bpi_email']) : '');
         update_post_meta($post_id, 'bpi_streets', isset($_POST['bpi_streets']) ? sanitize_textarea_field($_POST['bpi_streets']) : '');
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        $opening_hours = [];
+        if (isset($_POST['bpi_opening_hours']) && is_array($_POST['bpi_opening_hours'])) {
+            foreach ($days as $day) {
+                $from = isset($_POST['bpi_opening_hours'][$day]['from']) ? sanitize_text_field($_POST['bpi_opening_hours'][$day]['from']) : '';
+                $to   = isset($_POST['bpi_opening_hours'][$day]['to']) ? sanitize_text_field($_POST['bpi_opening_hours'][$day]['to']) : '';
+                if ($from || $to) {
+                    $opening_hours[$day] = [
+                        'from' => $from,
+                        'to'   => $to,
+                    ];
+                }
+            }
+        }
+        update_post_meta($post_id, 'bpi_opening_hours', $opening_hours);
         $html_blocks = [];
         if (!empty($_POST['bpi_html_blocks']) && is_array($_POST['bpi_html_blocks'])) {
             foreach ($_POST['bpi_html_blocks'] as $block) {
@@ -375,6 +420,7 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 $email   = get_post_meta(get_the_ID(), 'bpi_email', true);
                 $extra   = get_post_meta(get_the_ID(), 'bpi_extra', true);
                 $streets = get_post_meta(get_the_ID(), 'bpi_streets', true);
+                $opening_hours = get_post_meta(get_the_ID(), 'bpi_opening_hours', true);
                 $html_blocks = get_post_meta(get_the_ID(), 'bpi_html_blocks', true);
                 if (!is_array($html_blocks)) {
                     $html_blocks = [];
@@ -509,6 +555,37 @@ class BajaPublicInformationCustomPostType extends BajaPublicInformationBaseContr
                 if ($website) {
                     echo '<div class="bpi-field"><img src="' . esc_url($this->pluginUrl . 'assets/img/globe.svg') . '" alt="email">';
                     echo '<a href="' . esc_url($website) . '" target="_blank">' . esc_html($website) . '</a>';
+                    echo '</div>';
+                }
+                $has_hours = false;
+                if (is_array($opening_hours)) {
+                    foreach ($opening_hours as $vals) {
+                        if (!empty($vals['from']) || !empty($vals['to'])) {
+                            $has_hours = true;
+                            break;
+                        }
+                    }
+                }
+                if ($has_hours) {
+                    $days = [
+                        'monday'    => __('Hétfő', 'bpi'),
+                        'tuesday'   => __('Kedd', 'bpi'),
+                        'wednesday' => __('Szerda', 'bpi'),
+                        'thursday'  => __('Csütörtök', 'bpi'),
+                        'friday'    => __('Péntek', 'bpi'),
+                        'saturday'  => __('Szombat', 'bpi'),
+                        'sunday'    => __('Vasárnap', 'bpi'),
+                    ];
+                    echo '<div class="bpi-opening-hours">';
+                    echo '<h4>' . __('NYITVA TARTÁS', 'bpi') . '</h4>';
+                    echo '<table class="bpi-opening-table">';
+                    foreach ($days as $key => $label) {
+                        $from = isset($opening_hours[$key]['from']) ? $opening_hours[$key]['from'] : '';
+                        $to   = isset($opening_hours[$key]['to']) ? $opening_hours[$key]['to'] : '';
+                        $time = ($from || $to) ? $from . ' - ' . $to : '';
+                        echo '<tr><td>' . esc_html($label) . '</td><td style="border-left:1px solid #ccc;padding-left:0.5rem;">' . esc_html($time) . '</td></tr>';
+                    }
+                    echo '</table>';
                     echo '</div>';
                 }
                 if (!empty($html_blocks[1]['name']) || !empty($html_blocks[1]['content'])) {
